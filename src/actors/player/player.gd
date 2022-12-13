@@ -8,6 +8,7 @@ var stats: Resource = preload("res://src/actors/player/resources/playerStats.tre
 var moveDirection: Vector2 = Vector2.ZERO
 var lastMoveDirection: Vector2 = Vector2.ZERO
 var moveStrength: Vector2 = Vector2.ZERO
+var transformTime: float = 0.3
 
 
 func _ready() -> void:
@@ -21,7 +22,8 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	sm.physics(delta)
 	sm.state_check(delta)
-	
+
+	align_with_floor()
 	get_move_input()
 	
 	EventBus.emit_signal("debugVelocity", velocity.round())
@@ -45,3 +47,11 @@ func get_move_input() -> void:
 	
 	if moveDirection != Vector2.ZERO:
 		lastMoveDirection = moveDirection
+
+func align_with_floor() -> void:
+	if is_on_floor():
+		rotation = get_floor_normal().angle() + PI/2
+	else:
+		if rotation != 0:
+			var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+			tween.tween_property(self, "rotation", 0, transformTime).from_current()
