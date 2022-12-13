@@ -25,6 +25,7 @@ _data = {
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 64
 collision_mask = 2
+floor_constant_speed = true
 floor_max_angle = 1.68948
 floor_snap_length = 10.6
 script = ExtResource("1_a3yhc")
@@ -32,17 +33,24 @@ script = ExtResource("1_a3yhc")
 [node name="CharacterRig" type="Node2D" parent="."]
 script = ExtResource("2_i63he")
 
-[node name="ColorRect" type="ColorRect" parent="CharacterRig"]
-visible = false
-offset_left = -16.0
-offset_top = -64.0
-offset_right = 16.0
-color = Color(0.392157, 0, 1, 1)
-
 [node name="Body" type="Sprite2D" parent="CharacterRig"]
+visible = false
 position = Vector2(0, -32)
 scale = Vector2(0.192771, 0.576577)
 texture = ExtResource("3_pmloy")
+
+[node name="Body2" type="Node2D" parent="CharacterRig"]
+
+[node name="Line2D" type="Line2D" parent="CharacterRig/Body2"]
+position = Vector2(16, 0)
+points = PackedVector2Array(-24, -64, -32, -56, -32, -8, -24, 0, -8, 0, 0, -8, 0, -56, -8, -64, -24, -64, -32, -56)
+width = 2.0
+joint_mode = 1
+
+[node name="Polygon2D" type="Polygon2D" parent="CharacterRig/Body2"]
+position = Vector2(-64, 0)
+color = Color(0.521569, 0.32549, 0.984314, 1)
+polygon = PackedVector2Array(56, 0, 48, -8, 48, -56, 56, -64, 72, -64, 80, -56, 80, -8, 72, 0)
 
 [node name="Eye" type="Line2D" parent="CharacterRig"]
 position = Vector2(0, -48)
@@ -72,6 +80,7 @@ points = PackedVector2Array(0, 0, 32, 0)
 width = 4.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -24)
 shape = SubResource("CapsuleShape2D_4yldr")
 
