@@ -1,0 +1,7 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://i6ja7hqkkxh8"]
+
+[ext_resource type="Script" path="res://src/actors/player/scripts/playerStats.gd" id="1_t2qn0"]
+
+[resource]
+script = ExtResource("1_t2qn0")
+baseSpeed = 15

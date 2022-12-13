@@ -1,0 +1,93 @@
+[gd_scene load_steps=8 format=3 uid="uid://f53exxejh5co"]
+
+[ext_resource type="Script" path="res://src/levels/playground.gd" id="1_fgo7i"]
+[ext_resource type="Script" path="res://src/object/prefab/scripts/DrawCollisionShape2D.gd" id="1_isl6d"]
+[ext_resource type="Script" path="res://src/debug/Info.gd" id="2_slpti"]
+[ext_resource type="PackedScene" uid="uid://pp6ddxrx0paq" path="res://src/actors/player/player.tscn" id="3_m0pk1"]
+[ext_resource type="Script" path="res://src/levels/POLY.gd" id="5_e68rw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l1c3o"]
+size = Vector2(1310, 32)
+
+[sub_resource type="Curve2D" id="Curve2D_1a0bp"]
+_data = {
+"points": PackedVector2Array(-192.434, 121.162, 192.434, -121.162, -479, 14, -106.908, -8.90899, 106.908, 8.90899, -139, 142, -26.9695, -32.9628, 26.9695, 32.9628, -16, 200, -110.875, 38.956, 110.875, -38.956, 131, 335, -142.544, 30.2906, 142.544, -30.2906, 399, 482, -64.4272, -40.4543, 64.4272, 40.4543, 827, 525, -41.9526, -37.4577, 41.9526, 37.4577, 1110, 585, 0, 0, 0, 0, 1523, 729, 0, 0, 0, 0, -178, 705, 0, 0, 0, 0, -479, 14)
+}
+point_count = 10
+
+[node name="Playground" type="Node"]
+script = ExtResource("1_fgo7i")
+
+[node name="Debug" type="CanvasLayer" parent="."]
+
+[node name="Info" type="MarginContainer" parent="Debug"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_bottom = 20
+script = ExtResource("2_slpti")
+
+[node name="Panel" type="Panel" parent="Debug/Info"]
+modulate = Color(1, 1, 1, 0.576471)
+offset_left = 20.0
+offset_right = 40.0
+offset_bottom = 60.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Debug/Info"]
+offset_left = 20.0
+offset_right = 40.0
+offset_bottom = 60.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Debug/Info/MarginContainer"]
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 15.0
+offset_bottom = 55.0
+
+[node name="State" type="Label" parent="Debug/Info/MarginContainer/VBoxContainer"]
+offset_right = 10.0
+offset_bottom = 23.0
+
+[node name="Velocity" type="Label" parent="Debug/Info/MarginContainer/VBoxContainer"]
+offset_top = 27.0
+offset_right = 10.0
+offset_bottom = 50.0
+
+[node name="Player" parent="." instance=ExtResource("3_m0pk1")]
+
+[node name="Player@Camera2D" type="Camera2D" parent="Player"]
+current = true
+
+[node name="Ground" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+metadata/_edit_lock_ = true
+
+[node name="intro" type="CollisionShape2D" parent="Ground"]
+position = Vector2(643, 802)
+shape = SubResource("RectangleShape2D_l1c3o")
+script = ExtResource("1_isl6d")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("5_e68rw")
+
+[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+
+[node name="Line2D" type="Line2D" parent="StaticBody2D"]
+width = 8.0
+
+[node name="Path2D" type="Path2D" parent="StaticBody2D"]
+position = Vector2(-994, 84)
+curve = SubResource("Curve2D_1a0bp")
