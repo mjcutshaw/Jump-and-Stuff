@@ -11,6 +11,7 @@ Abilities
 		Side flip
 			reverse momentum
 		regrab, fall faster when jump held during fall
+		check if close to floor to use regular jump instead of double jump
 	Dash
 		Up
 		Down

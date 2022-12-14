@@ -3,7 +3,9 @@ extends PlayerState
 #TODO: hold down to pass through semisolids
 
 func enter() -> void:
-	pass
+	if player.rotation != 0:
+		var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+		tween.tween_property(player, "rotation", 0, 0.4).from_current()
 
 
 func exit() -> void:
@@ -32,6 +34,9 @@ func handle_input(event: InputEvent) -> int:
 
 func state_check(delta: float) -> int:
 	if player.is_on_floor():
-		return State.Idle
+		if player.moveDirection.x != 0:
+			return State.Walk
+		else:
+			return State.Idle
 
 	return State.Null

@@ -2,7 +2,11 @@ extends PlayerState
 
 
 func enter() -> void:
-	pass
+	player.velocity.y = -600
+	
+	if player.rotation != 0:
+		var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+		tween.tween_property(player, "rotation", 0, 0.4).from_current()
 
 
 func exit() -> void:
@@ -10,7 +14,8 @@ func exit() -> void:
 
 
 func physics(delta) -> void:
-	pass
+	player.move_and_slide()
+	player.velocity.y += 20
 
 
 func visual(delta) -> void:
@@ -28,6 +33,7 @@ func handle_input(event: InputEvent) -> int:
 
 
 func state_check(delta: float) -> int:
-	
+	if player.velocity.y >= 0:
+		return State.Fall
 
 	return State.Null

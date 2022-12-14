@@ -1,5 +1,6 @@
 extends PlayerState
 
+var gravity = 4000
 
 func enter() -> void:
 	player.animPlayer.play("walk")
@@ -10,16 +11,22 @@ func exit() -> void:
 
 
 func physics(delta) -> void:
-	player.move_and_slide()
-	
 	if player.moveDirection.x != 0:
 		if abs(player.velocity.x) < stats.moveSpeed:
 			player.velocity.x = move_toward(abs(player.velocity.x), stats.moveSpeed, stats.accelerationGround) * player.moveDirection.x
 	else:
 		player.velocity.x = move_toward(player.velocity.x, 0, stats.frictionGround)
+#
+#	if player.is_on_wall():
+#		player.velocity.x = 0
+	player.velocity.y += gravity * delta
+	player.set_up_direction(-player.transform.y)
+	player.velocity = player.velocity.rotated(player.rotation)
+	player.move_and_slide()
+	player.velocity = player.velocity.rotated(-player.rotation)
 	
-	if player.is_on_wall():
-		player.velocity.x = 0
+	player.rotation = player.get_floor_normal().angle() + PI/2
+
 
 
 func visual(delta) -> void:
@@ -45,3 +52,4 @@ func state_check(delta: float) -> int:
 		return State.Idle
 
 	return State.Null
+

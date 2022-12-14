@@ -1,11 +1,16 @@
 extends StaticBody2D
+#TODO: make prefab
+#FIXME: need to lower points on collision layer
+##kinda like smartshape
 
+@onready var body: Polygon2D = $Polygon2D
+@onready var collision: CollisionPolygon2D = $CollisionPolygon2D
+@onready var outline: Line2D = $Line2D
+@onready var path: Path2D = $Path2D
 
 func _ready() -> void:
-	var curve = $Path2D.curve
-	var polygon = curve.get_baked_points()
-	print(polygon.size())
-
-	$CollisionPolygon2D.polygon = polygon
-	$Polygon2D.polygon = polygon
-	$Line2D.points = polygon
+	var shape = path.curve.get_baked_points()
+	
+	body.polygon = shape
+	collision.polygon = shape
+	outline.points = shape

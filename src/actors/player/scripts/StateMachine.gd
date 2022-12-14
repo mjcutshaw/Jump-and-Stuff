@@ -54,7 +54,7 @@ func change_state(newState: int) -> void:
 	currentState.enter()
 	currentStateName = currentState.name
 
-	EventBus.emit_signal("debugState", currentStateName)
+	EventBus.emit_signal("debugState", currentStateName + " from " + previousStateName)
 #	EventBus.emit_signal("error", currentStateName)
 	#TODO: create log instead of error
 

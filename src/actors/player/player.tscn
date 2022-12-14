@@ -10,9 +10,8 @@
 [ext_resource type="Script" path="res://src/actors/player/states/jump.gd" id="8_8a3ob"]
 [ext_resource type="Script" path="res://src/actors/player/states/fall.gd" id="9_hid0t"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4yldr"]
-radius = 16.0
-height = 48.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_600ib"]
+size = Vector2(20, 40)
 
 [sub_resource type="Animation" id="Animation_xkfx1"]
 resource_name = "walk"
@@ -26,8 +25,9 @@ _data = {
 collision_layer = 64
 collision_mask = 2
 floor_constant_speed = true
-floor_max_angle = 1.68948
-floor_snap_length = 10.6
+floor_block_on_wall = false
+floor_max_angle = 1.20428
+floor_snap_length = 18.1
 script = ExtResource("1_a3yhc")
 
 [node name="CharacterRig" type="Node2D" parent="."]
@@ -80,9 +80,8 @@ points = PackedVector2Array(0, 0, 32, 0)
 width = 4.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(0, -24)
-shape = SubResource("CapsuleShape2D_4yldr")
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_600ib")
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("4_tcit3")
