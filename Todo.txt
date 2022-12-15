@@ -1,4 +1,5 @@
 #TODO 
+Make character BB8
 
 Abilities
 	Jump
@@ -25,33 +26,33 @@ Abilities
 			gaucamelee donkey 
 		Wall dash
 			Crystal dash from hollow knight
-		Grapple Hook
-			Pull to target
-			Ori like, some targets stop, other pass through
-			Some targets you can swing off
-		Swimming
-			upgrades to go through different types
-			water, lava, poison
-		Swim Dash
-		Burrow
-			Sand
-			Snow
-		Glide
-		Slide/roll/spin
-			combine with spin from lone fungus, skill press to bounce of spikes
-			shrink to one block
-			Can jump off things to keep slide
-			https://youtu.be/CTpflm_pFgs Around 5 minutes 
-		Crouch
-		Ori bash
-			Bounce off projectiles
-		pogo/spin
-			Bounce off walls
-		Ledge grab
-			Press jump to boost over
-		SMW PSpeed
-			water run
-			run on curved walls
+	Grapple Hook
+		Pull to target
+		Ori like, some targets stop, other pass through
+		Some targets you can swing off
+	Swimming
+		upgrades to go through different types
+		water, lava, poison
+	Swim Dash
+	Burrow
+		Sand
+		Snow
+	Glide
+	Slide/roll/spin
+		combine with spin from lone fungus, skill press to bounce of spikes
+		shrink to one block
+		Can jump off things to keep slide
+		https://youtu.be/CTpflm_pFgs Around 5 minutes 
+	Crouch
+	Ori bash
+		Bounce off projectiles
+	pogo/spin
+		Bounce off walls
+	Ledge grab
+		Press jump to boost over
+	SMW PSpeed
+		water run
+		run on curved walls
 
 
 

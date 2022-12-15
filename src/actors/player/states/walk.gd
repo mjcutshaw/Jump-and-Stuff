@@ -12,13 +12,14 @@ func exit() -> void:
 
 func physics(delta) -> void:
 	if player.moveDirection.x != 0:
-		if abs(player.velocity.x) < stats.moveSpeed:
-			player.velocity.x = move_toward(abs(player.velocity.x), stats.moveSpeed, stats.accelerationGround) * player.moveDirection.x
+		if abs(player.velocity.x) < 1200:
+			player.velocity.x = move_toward(abs(player.velocity.x), 1200, stats.accelerationGround) * player.moveDirection.x
 	else:
 		player.velocity.x = move_toward(player.velocity.x, 0, stats.frictionGround)
 #
 #	if player.is_on_wall():
 #		player.velocity.x = 0
+	#TODO: move to PSpeed state with
 	player.velocity.y += gravity * delta
 	player.set_up_direction(-player.transform.y)
 	player.velocity = player.velocity.rotated(player.rotation)
@@ -26,8 +27,6 @@ func physics(delta) -> void:
 	player.velocity = player.velocity.rotated(-player.rotation)
 	
 	player.rotation = player.get_floor_normal().angle() + PI/2
-
-
 
 func visual(delta) -> void:
 	player.characterRig.skew = remap(-player.velocity.x, 0, abs(stats.moveSpeed), 0.0, 0.1)

@@ -7,7 +7,6 @@ var stats: Resource = preload("res://src/actors/player/resources/playerStats.tre
 @onready var characterRig: Node2D = $CharacterRig
 @onready var eyes: Node = $CharacterRig/Eyes
 var eyeDirection: int = 1 #TODO: randomizer on spawn
-
 var moveDirection: Vector2 = Vector2.ZERO
 var lastMoveDirection: Vector2 = Vector2.ZERO
 var moveStrength: Vector2 = Vector2.ZERO
@@ -33,7 +32,6 @@ func _physics_process(delta: float) -> void:
 func _process(delta: float) -> void:
 	sm.visual(delta)
 	sm.sound(delta)
-
 
 func get_move_input() -> void:
 	var deadzoneRadius: float = 0.2
