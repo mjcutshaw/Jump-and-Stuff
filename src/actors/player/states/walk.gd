@@ -30,7 +30,7 @@ func physics(delta) -> void:
 
 
 func visual(delta) -> void:
-	pass
+	player.characterRig.skew = remap(-player.velocity.x, 0, abs(stats.moveSpeed), 0.0, 0.1)
 
 
 func sound(delta: float) -> void:

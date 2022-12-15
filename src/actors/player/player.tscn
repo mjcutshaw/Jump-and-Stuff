@@ -52,13 +52,15 @@ position = Vector2(-64, 0)
 color = Color(0.521569, 0.32549, 0.984314, 1)
 polygon = PackedVector2Array(56, 0, 48, -8, 48, -56, 56, -64, 72, -64, 80, -56, 80, -8, 72, 0)
 
-[node name="Eye" type="Line2D" parent="CharacterRig"]
+[node name="Eyes" type="Node2D" parent="CharacterRig"]
 position = Vector2(0, -48)
+
+[node name="LEye" type="Line2D" parent="CharacterRig/Eyes"]
 points = PackedVector2Array(0, -8, 0, 0)
 width = 4.0
 
-[node name="Eye2" type="Line2D" parent="CharacterRig"]
-position = Vector2(8, -48)
+[node name="REye" type="Line2D" parent="CharacterRig/Eyes"]
+position = Vector2(8, 0)
 points = PackedVector2Array(0, -8, 0, 0)
 width = 4.0
 

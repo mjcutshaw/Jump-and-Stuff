@@ -4,6 +4,9 @@ class_name  Player
 var stats: Resource = preload("res://src/actors/player/resources/playerStats.tres")
 @onready var animPlayer: AnimationPlayer = $AnimationPlayer
 @onready var sm: Node = $StateMachine
+@onready var characterRig: Node2D = $CharacterRig
+@onready var eyes: Node = $CharacterRig/Eyes
+var eyeDirection: int = 1 #TODO: randomizer on spawn
 
 var moveDirection: Vector2 = Vector2.ZERO
 var lastMoveDirection: Vector2 = Vector2.ZERO
@@ -23,7 +26,7 @@ func _physics_process(delta: float) -> void:
 	sm.state_check(delta)
 
 	get_move_input()
-	
+	facing()
 	EventBus.emit_signal("debugVelocity", velocity.round())
 
 
@@ -47,5 +50,17 @@ func get_move_input() -> void:
 		lastMoveDirection = moveDirection
 
 
+func facing():
+	#TODO: need to be able to send variables
+	if moveDirection.x == 1 and eyeDirection == -1:
+		var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+		tween.tween_property(eyes, "position", Vector2(0, eyes.position.y), 0.2).from_current()
+#		eyes.position.x = 0
+		eyeDirection = 1
+	if moveDirection.x == -1  and eyeDirection == 1:
+		var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+		tween.tween_property(eyes, "position", Vector2(-8, eyes.position.y), 0.2).from_current()
+#		eyes.position.x = -8
+		eyeDirection = -1
 
 
