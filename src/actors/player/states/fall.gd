@@ -40,8 +40,8 @@ func handle_input(event: InputEvent) -> int:
 
 
 func state_check(delta: float) -> int:
-	if player.is_grounded():
-		player.rotation = player.get_floor_normal().angle() + PI/2
+	if player.is_on_floor():
+		player.rotation = player.get_floor_normal().angle() + PI/2 #TODO: better ground detection
 		if player.moveDirection.x != 0:
 			return State.Walk
 		else:

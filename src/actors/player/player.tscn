@@ -1,9 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://pp6ddxrx0paq"]
+[gd_scene load_steps=14 format=3 uid="uid://pp6ddxrx0paq"]
 
 [ext_resource type="Script" path="res://src/actors/player/player.gd" id="1_a3yhc"]
-[ext_resource type="Script" path="res://src/object/prefab/scripts/DrawCollisionShape2D.gd" id="2_2axgd"]
 [ext_resource type="Script" path="res://src/actors/player/scripts/CharacterRig.gd" id="2_i63he"]
-[ext_resource type="Script" path="res://src/object/scripts/outline.gd" id="4_15x7y"]
+[ext_resource type="Texture2D" uid="uid://dcpcdq5q7e4th" path="res://asset/player/circle100.png" id="3_wp4pc"]
 [ext_resource type="Script" path="res://src/actors/player/scripts/dashIndicator.gd" id="4_ra5wj"]
 [ext_resource type="Script" path="res://src/actors/player/scripts/StateMachine.gd" id="4_tcit3"]
 [ext_resource type="Script" path="res://src/actors/player/states/spawn.gd" id="5_86xj5"]
@@ -32,34 +31,52 @@ script = ExtResource("1_a3yhc")
 [node name="BodyCollision" type="CollisionShape2D" parent="."]
 position = Vector2(0, -16)
 shape = SubResource("CircleShape2D_6podp")
-script = ExtResource("2_2axgd")
-color = Color(0.121569, 0.34902, 0.964706, 1)
 
 [node name="CharacterRig" type="Node2D" parent="."]
 script = ExtResource("2_i63he")
 
-[node name="Head" type="Polygon2D" parent="CharacterRig"]
-position = Vector2(0, -15)
-color = Color(0, 0.458824, 0.933333, 1)
-polygon = PackedVector2Array(-8, -17, 8, -17, 16, -35, -16, -35)
-
-[node name="Line2D" type="Line2D" parent="CharacterRig/Head"]
-width = 1.0
-script = ExtResource("4_15x7y")
-
 [node name="Body" type="Node2D" parent="CharacterRig"]
-visible = false
+position = Vector2(0, -16)
 
 [node name="Line2D" type="Line2D" parent="CharacterRig/Body"]
-position = Vector2(16, 0)
-points = PackedVector2Array(-24, -64, -32, -56, -32, -8, -24, 0, -8, 0, 0, -8, 0, -56, -8, -64, -24, -64, -32, -56)
+position = Vector2(16, 16)
+points = PackedVector2Array(-24, -32, -32, -24, -32, -8, -24, 0, -8, 0, 0, -8, 0, -24, -8, -32, -24, -32, -32, -24)
 width = 2.0
 joint_mode = 1
 
 [node name="Polygon2D" type="Polygon2D" parent="CharacterRig/Body"]
-position = Vector2(-64, 0)
 color = Color(0.521569, 0.32549, 0.984314, 1)
-polygon = PackedVector2Array(56, 0, 48, -8, 48, -56, 56, -64, 72, -64, 80, -56, 80, -8, 72, 0)
+polygon = PackedVector2Array(-8, 16, -16, 8, -16, -8, -8, -16, 8, -16, 16, -8, 16, 8, 8, 16)
+
+[node name="Circle100" type="Sprite2D" parent="CharacterRig/Body"]
+position = Vector2(-8, -8)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("3_wp4pc")
+
+[node name="Circle101" type="Sprite2D" parent="CharacterRig/Body"]
+position = Vector2(8, -8)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("3_wp4pc")
+
+[node name="Circle102" type="Sprite2D" parent="CharacterRig/Body"]
+position = Vector2(8, 8)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("3_wp4pc")
+
+[node name="Circle103" type="Sprite2D" parent="CharacterRig/Body"]
+position = Vector2(-8, 8)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("3_wp4pc")
+
+[node name="Head" type="Polygon2D" parent="CharacterRig"]
+position = Vector2(0, -15)
+color = Color(0, 0.458824, 0.933333, 1)
+polygon = PackedVector2Array(-8, -17, 8, -17, 16, -33, -16, -33)
+
+[node name="Line2D" type="Line2D" parent="CharacterRig/Head"]
+points = PackedVector2Array(8, -17, 16, -33, -16, -33, -8, -17, 8, -17)
+width = 1.0
+joint_mode = 2
 
 [node name="Eyes" type="Node2D" parent="CharacterRig"]
 position = Vector2(0, -38)
@@ -110,6 +127,7 @@ script = ExtResource("8_8a3ob")
 script = ExtResource("9_hid0t")
 
 [node name="Raycasts" type="Node2D" parent="."]
+visible = false
 
 [node name="Ground" type="Node2D" parent="Raycasts"]
 

@@ -27,13 +27,11 @@ func physics(delta) -> void:
 	player.velocity = player.velocity.rotated(-player.rotation)
 	
 	player.rotation = player.get_floor_normal().angle() + PI/2
-	player.groundAngle = player.get_floor_normal().angle() + PI/2
-
 
 
 func visual(delta) -> void:
-	player.characterRig.skew = remap(-player.velocity.x, 0, abs(stats.moveSpeed), 0.0, 0.1)
-#	player.rotation = player.groundAngle
+	player.head.skew = remap(-player.velocity.x, 0, abs(stats.moveSpeed), 0.0, 0.1)
+	player.body.rotate(player.get_rot())
 
 
 func sound(delta: float) -> void:
@@ -48,7 +46,7 @@ func handle_input(event: InputEvent) -> int:
 
 
 func state_check(delta: float) -> int:
-	if !player.is_grounded():
+	if !player.is_on_floor():
 		return State.Fall
 
 	if player.velocity.x == 0:

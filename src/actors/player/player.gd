@@ -6,8 +6,8 @@ var stats: Resource = preload("res://src/actors/player/resources/playerStats.tre
 @onready var sm: Node = $StateMachine
 @onready var characterRig: Node2D = $CharacterRig
 @onready var eyes: Node = $CharacterRig/Eyes
-@onready var groundDetectorL: RayCast2D = $Raycasts/Ground/Left
-@onready var groundDetectorR: RayCast2D = $Raycasts/Ground/Right
+@onready var head: Polygon2D = $CharacterRig/Head
+@onready var body: Node2D = $CharacterRig/Body
 
 var eyeDirection: int = 1 #TODO: randomizer on spawn
 var moveDirection: Vector2 = Vector2.ZERO
@@ -55,14 +55,7 @@ func get_move_input() -> void:
 	if moveDirection != Vector2.ZERO:
 		lastMoveDirection = moveDirection
 
-func is_grounded():
-	if groundDetectorL.is_colliding():
-		return true
-	if groundDetectorR.is_colliding():
-		return true
-	if is_on_floor():
-		return true
-	return false
+
 
 func facing():
 	#TODO: need to be able to send variables
@@ -77,4 +70,15 @@ func facing():
 #		eyes.position.x = -8
 		eyeDirection = -1
 
+func get_rot(): #FIXME: spins weird
+	var d = 16
+	var circumference = d * PI
+	var rotation = (velocity.x / circumference) * (2*PI) 
+	var rotate_amount: float
 
+	if velocity.x <= 0:
+		rotate_amount = -abs(rotation)
+	else:
+		rotate_amount = abs(rotation)
+
+	return rotate_amount
