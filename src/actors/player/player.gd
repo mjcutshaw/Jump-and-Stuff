@@ -6,11 +6,18 @@ var stats: Resource = preload("res://src/actors/player/resources/playerStats.tre
 @onready var sm: Node = $StateMachine
 @onready var characterRig: Node2D = $CharacterRig
 @onready var eyes: Node = $CharacterRig/Eyes
+@onready var groundDetectorL: RayCast2D = $Raycasts/Ground/Left
+@onready var groundDetectorR: RayCast2D = $Raycasts/Ground/Right
+
 var eyeDirection: int = 1 #TODO: randomizer on spawn
 var moveDirection: Vector2 = Vector2.ZERO
 var lastMoveDirection: Vector2 = Vector2.ZERO
 var moveStrength: Vector2 = Vector2.ZERO
-
+var aimDirection: Vector2 = Vector2.ZERO
+var lastAimDirection: Vector2 = Vector2.ZERO
+var aimStrength: Vector2 = Vector2.ZERO
+var groundAngle: float
+var velocityRotated: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	sm.init()
@@ -27,6 +34,7 @@ func _physics_process(delta: float) -> void:
 	get_move_input()
 	facing()
 	EventBus.emit_signal("debugVelocity", velocity.round())
+	EventBus.emit_signal("debug", is_on_floor())
 
 
 func _process(delta: float) -> void:
@@ -47,6 +55,14 @@ func get_move_input() -> void:
 	if moveDirection != Vector2.ZERO:
 		lastMoveDirection = moveDirection
 
+func is_grounded():
+	if groundDetectorL.is_colliding():
+		return true
+	if groundDetectorR.is_colliding():
+		return true
+	if is_on_floor():
+		return true
+	return false
 
 func facing():
 	#TODO: need to be able to send variables

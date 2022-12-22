@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://pp6ddxrx0paq"]
+[gd_scene load_steps=15 format=3 uid="uid://pp6ddxrx0paq"]
 
 [ext_resource type="Script" path="res://src/actors/player/player.gd" id="1_a3yhc"]
 [ext_resource type="Script" path="res://src/object/prefab/scripts/DrawCollisionShape2D.gd" id="2_2axgd"]
 [ext_resource type="Script" path="res://src/actors/player/scripts/CharacterRig.gd" id="2_i63he"]
+[ext_resource type="Script" path="res://src/object/scripts/outline.gd" id="4_15x7y"]
 [ext_resource type="Script" path="res://src/actors/player/scripts/dashIndicator.gd" id="4_ra5wj"]
 [ext_resource type="Script" path="res://src/actors/player/scripts/StateMachine.gd" id="4_tcit3"]
 [ext_resource type="Script" path="res://src/actors/player/states/spawn.gd" id="5_86xj5"]
@@ -11,7 +12,7 @@
 [ext_resource type="Script" path="res://src/actors/player/states/jump.gd" id="8_8a3ob"]
 [ext_resource type="Script" path="res://src/actors/player/states/fall.gd" id="9_hid0t"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_lqw1x"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_6podp"]
 radius = 16.0
 
 [sub_resource type="Animation" id="Animation_xkfx1"]
@@ -25,24 +26,26 @@ _data = {
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 64
 collision_mask = 2
-floor_constant_speed = true
 floor_block_on_wall = false
-floor_snap_length = 15.5
 script = ExtResource("1_a3yhc")
 
-[node name="Body" type="CollisionShape2D" parent="."]
+[node name="BodyCollision" type="CollisionShape2D" parent="."]
 position = Vector2(0, -16)
-shape = SubResource("CircleShape2D_lqw1x")
+shape = SubResource("CircleShape2D_6podp")
 script = ExtResource("2_2axgd")
-color = Color(0.513726, 0.513726, 0.513726, 1)
+color = Color(0.121569, 0.34902, 0.964706, 1)
 
 [node name="CharacterRig" type="Node2D" parent="."]
 script = ExtResource("2_i63he")
 
 [node name="Head" type="Polygon2D" parent="CharacterRig"]
 position = Vector2(0, -15)
-color = Color(0.478431, 0.478431, 0.478431, 1)
+color = Color(0, 0.458824, 0.933333, 1)
 polygon = PackedVector2Array(-8, -17, 8, -17, 16, -35, -16, -35)
+
+[node name="Line2D" type="Line2D" parent="CharacterRig/Head"]
+width = 1.0
+script = ExtResource("4_15x7y")
 
 [node name="Body" type="Node2D" parent="CharacterRig"]
 visible = false
@@ -105,6 +108,20 @@ script = ExtResource("8_8a3ob")
 
 [node name="Fall" type="Node" parent="StateMachine"]
 script = ExtResource("9_hid0t")
+
+[node name="Raycasts" type="Node2D" parent="."]
+
+[node name="Ground" type="Node2D" parent="Raycasts"]
+
+[node name="Left" type="RayCast2D" parent="Raycasts/Ground"]
+position = Vector2(-16, -16)
+target_position = Vector2(0, 16)
+collision_mask = 2
+
+[node name="Right" type="RayCast2D" parent="Raycasts/Ground"]
+position = Vector2(16, -16)
+target_position = Vector2(0, 16)
+collision_mask = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

@@ -2,8 +2,10 @@ extends PlayerState
 
 
 func enter() -> void:
-	pass
-	player.velocity= Vector2.ZERO #FIXME: needs to deccel
+	## Pulls player off the wall
+	#TODO: check rotation to move off wall
+	player.velocity = Vector2(0, 10)
+	player.set_up_direction(Vector2.UP)
 
 
 func exit() -> void:
@@ -29,5 +31,7 @@ func handle_input(event: InputEvent) -> int:
 func state_check(delta: float) -> int:
 	if player.moveDirection.x != 0:
 		return State.Walk
+	if !player.is_on_floor():
+		return State.Fall
 
 	return State.Null

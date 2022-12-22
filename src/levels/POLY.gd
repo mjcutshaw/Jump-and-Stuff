@@ -1,6 +1,5 @@
 extends StaticBody2D
-#TODO: make prefab
-#FIXME: need to lower points on collision layer
+
 ##kinda like smartshape
 
 @onready var body: Polygon2D = $Polygon2D

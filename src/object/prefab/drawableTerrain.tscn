@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhto12bvuu2p"]
+
+[ext_resource type="Script" path="res://src/levels/POLY.gd" id="1_fd8o3"]
+
+[sub_resource type="Curve2D" id="Curve2D_wwfj7"]
+
+[node name="StaticBody2D" type="StaticBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_fd8o3")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0, 0, 0, 1)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 8.0
+default_color = Color(0, 0.568627, 0, 1)
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_wwfj7")

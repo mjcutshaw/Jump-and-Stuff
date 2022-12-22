@@ -166,7 +166,9 @@ enemies
 	Mario buzzy beetle
 	Charging chuck
 
-Blocks to add 
+Blocks to add
+	mario odyssey fling things (forks, traffice cones)
+		can use grapple on it
 	Sheepo blocks
 		enter then choose fire angle
 		lock character in launch direction

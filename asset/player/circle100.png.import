@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8hhojb8qp4q2"
-path="res://.godot/imported/bodyGreen.png-5a6eabdbb5ee6b2e5ad4c41faa58e679.ctex"
+uid="uid://dcpcdq5q7e4th"
+path="res://.godot/imported/circle100.png-d877c956efae65ea1e45a103ee7afdac.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://asset/player/bodyGreen.png"
-dest_files=["res://.godot/imported/bodyGreen.png-5a6eabdbb5ee6b2e5ad4c41faa58e679.ctex"]
+source_file="res://asset/player/circle100.png"
+dest_files=["res://.godot/imported/circle100.png-d877c956efae65ea1e45a103ee7afdac.ctex"]
 
 [params]
 

@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://f53exxejh5co"]
+[gd_scene load_steps=13 format=3 uid="uid://f53exxejh5co"]
 
 [ext_resource type="Script" path="res://src/levels/playground.gd" id="1_fgo7i"]
 [ext_resource type="Script" path="res://src/object/prefab/scripts/DrawCollisionShape2D.gd" id="1_isl6d"]
 [ext_resource type="Script" path="res://src/debug/Info.gd" id="2_slpti"]
 [ext_resource type="PackedScene" uid="uid://pp6ddxrx0paq" path="res://src/actors/player/player.tscn" id="3_m0pk1"]
+[ext_resource type="PackedScene" uid="uid://bhto12bvuu2p" path="res://src/object/prefab/drawableTerrain.tscn" id="4_ypsbw"]
 [ext_resource type="Script" path="res://src/levels/POLY.gd" id="5_e68rw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5sb2n"]
@@ -12,11 +13,14 @@ radius = 204.43
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l1c3o"]
 size = Vector2(1310, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gtk8u"]
-size = Vector2(51, 351)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_84nwl"]
-radius = 160.0
+radius = 574.78
+
+[sub_resource type="Curve2D" id="Curve2D_j04xt"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -2, -97, -473.958, 203.125, 473.958, -203.125, 1309, -339, 0, 0, 0, 0, 1582, -903, 0, 0, 0, 0, 1782, -756, 0, 0, 0, 0, 1812, -182, 0, 0, 0, 0, -2, -97)
+}
+point_count = 6
 
 [sub_resource type="Curve2D" id="Curve2D_1a0bp"]
 _data = {
@@ -92,65 +96,70 @@ shape = SubResource("CircleShape2D_5sb2n")
 script = ExtResource("1_isl6d")
 color = Color(0, 0.796078, 0, 1)
 
-[node name="Ground" type="StaticBody2D" parent="."]
+[node name="ground" type="Node" parent="."]
+
+[node name="Ground" type="StaticBody2D" parent="ground"]
 collision_layer = 2
 collision_mask = 0
 metadata/_edit_lock_ = true
 
-[node name="intro" type="CollisionShape2D" parent="Ground"]
-position = Vector2(-453.5, 58.5)
+[node name="intro" type="CollisionShape2D" parent="ground/Ground"]
+position = Vector2(-456, 16)
 shape = SubResource("RectangleShape2D_l1c3o")
 script = ExtResource("1_isl6d")
 
-[node name="intro3" type="CollisionShape2D" parent="Ground"]
-position = Vector2(-662, -107)
-shape = SubResource("RectangleShape2D_gtk8u")
-script = ExtResource("1_isl6d")
-
-[node name="intro2" type="CollisionShape2D" parent="Ground"]
-position = Vector2(-1671, 178)
+[node name="intro2" type="CollisionShape2D" parent="ground/Ground"]
+position = Vector2(-2052, 421)
 shape = SubResource("CircleShape2D_84nwl")
 script = ExtResource("1_isl6d")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="StaticBody2D" parent="ground" instance=ExtResource("4_ypsbw")]
+
+[node name="Path2D" parent="ground/StaticBody2D" index="3"]
+position = Vector2(8, -32)
+curve = SubResource("Curve2D_j04xt")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="ground"]
 position = Vector2(-952, 64)
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("5_e68rw")
 
-[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D"]
+[node name="Polygon2D" type="Polygon2D" parent="ground/StaticBody2D3"]
 color = Color(0, 0, 0, 1)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ground/StaticBody2D3"]
 
-[node name="Line2D" type="Line2D" parent="StaticBody2D"]
+[node name="Line2D" type="Line2D" parent="ground/StaticBody2D3"]
 width = 8.0
 default_color = Color(0, 0.568627, 0, 1)
 
-[node name="Path2D" type="Path2D" parent="StaticBody2D"]
+[node name="Path2D" type="Path2D" parent="ground/StaticBody2D3"]
 curve = SubResource("Curve2D_1a0bp")
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+[node name="StaticBody2D2" type="StaticBody2D" parent="ground"]
 position = Vector2(317, 1148)
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("5_e68rw")
 
-[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D2"]
+[node name="Polygon2D" type="Polygon2D" parent="ground/StaticBody2D2"]
 color = Color(0, 0, 0, 1)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D2"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ground/StaticBody2D2"]
 
-[node name="Line2D" type="Line2D" parent="StaticBody2D2"]
+[node name="Line2D" type="Line2D" parent="ground/StaticBody2D2"]
 width = 8.0
 default_color = Color(0, 0.568627, 0, 1)
 
-[node name="Path2D" type="Path2D" parent="StaticBody2D2"]
+[node name="Path2D" type="Path2D" parent="ground/StaticBody2D2"]
 curve = SubResource("Curve2D_8cg2n")
 
 [node name="Player" parent="." instance=ExtResource("3_m0pk1")]
-position = Vector2(-1314, 23)
-floor_snap_length = 32.0
+position = Vector2(232, -461)
+floor_snap_length = 9.0
 
 [node name="Player@Camera2D" type="Camera2D" parent="Player"]
 current = true
+
+[editable path="ground/StaticBody2D"]
