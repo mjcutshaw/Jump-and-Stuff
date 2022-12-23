@@ -22,6 +22,8 @@ func visual(delta) -> void:
 
 
 func handle_input(event: InputEvent) -> int:
+	if Input.is_action_pressed("crouch"): 
+		return State.Crouch
 	if Input.is_action_just_pressed("jump"):
 		return State.Jump
 

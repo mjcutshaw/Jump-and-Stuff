@@ -11,6 +11,7 @@ enum State {
 	Die,
 	Idle,
 	Walk,
+	Crouch,
 	Jump,
 	JumpAir,
 	JumpWall,

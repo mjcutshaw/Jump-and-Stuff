@@ -1,22 +1,25 @@
 extends PlayerState
 
 var gravity = 100
+#TODO: get friction from enviroment
+#TODO: momentum logic, ledge stop, coyote timers
 
 func enter() -> void:
 	player.animPlayer.play("walk")
+	player.particlesWalking.emitting = true
 
 
 func exit() -> void:
-	pass
+	player.particlesWalking.emitting = false
 
 
 func physics(delta) -> void:
 	if player.moveDirection.x != 0:
-		if abs(player.velocity.x) < 1200:
-			player.velocity.x = move_toward(abs(player.velocity.x), 1200, stats.accelerationGround) * player.moveDirection.x
+		if abs(player.velocity.x) < stats.moveSpeed:
+			player.velocity.x = move_toward(abs(player.velocity.x), stats.moveSpeed, stats.accelerationGround) * player.moveDirection.x
 	else:
 		player.velocity.x = move_toward(player.velocity.x, 0, stats.frictionGround)
-#
+	#TODO: skid, jump reverse
 #	if player.is_on_wall():
 #		player.velocity.x = 0
 	#TODO: move to PSpeed state with
@@ -26,12 +29,11 @@ func physics(delta) -> void:
 	player.move_and_slide()
 	player.velocity = player.velocity.rotated(-player.rotation)
 	
-	player.rotation = player.get_floor_normal().angle() + PI/2
+	player.rotation = player.get_floor_normal().angle() + PI/2 #FIXME: turn off if on ledge
 
 
 func visual(delta) -> void:
-	player.head.skew = remap(-player.velocity.x, 0, abs(stats.moveSpeed), 0.0, 0.1)
-	player.body.rotate(player.get_rot())
+	player.characterRig.skew = remap(player.velocity.x, 0, abs(stats.moveSpeed), 0.0, 0.1)
 
 
 func sound(delta: float) -> void:
@@ -39,6 +41,8 @@ func sound(delta: float) -> void:
 
 
 func handle_input(event: InputEvent) -> int:
+	if Input.is_action_pressed("crouch"): 
+		return State.Crouch
 	if Input.is_action_just_pressed("jump"):
 		return State.Jump
 
@@ -47,6 +51,7 @@ func handle_input(event: InputEvent) -> int:
 
 func state_check(delta: float) -> int:
 	if !player.is_on_floor():
+		player.coyoteJumpTimer.start()
 		return State.Fall
 
 	if player.velocity.x == 0:

@@ -2,17 +2,12 @@ extends PlayerState
 
 var gravity = 4000
 var JMP = 2000
-
+#TODO: bring in proper stats and functions
 
 func enter() -> void:
-#	player.velocity.x -= JMP * sin(player.groundDetectorL.get_collision_normal().angle_to(Vector2(0, -1)))
-#	player.velocity.y -= JMP * cos(player.groundDetectorL.get_collision_normal().angle_to(Vector2(0, -1)))
+	player.particlesJump.restart()
 	player.velocity.y = -2000
-#	player.velocity = Vector2(player.velocity.x+sin(player.rotation)*JMP,player.velocity.y-cos(player.rotation)*JMP)
-	
-#	if player.rotation != 0:
-#		var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
-#		tween.tween_property(player, "rotation", 0, 0.4).from_current()
+	player.coyoteJumpTimer.stop()
 
 
 func exit() -> void:

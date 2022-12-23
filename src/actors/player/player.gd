@@ -5,9 +5,20 @@ var stats: Resource = preload("res://src/actors/player/resources/playerStats.tre
 @onready var animPlayer: AnimationPlayer = $AnimationPlayer
 @onready var sm: Node = $StateMachine
 @onready var characterRig: Node2D = $CharacterRig
-@onready var eyes: Node = $CharacterRig/Eyes
-@onready var head: Polygon2D = $CharacterRig/Head
+@onready var eyes: Node2D = $CharacterRig/Eyes
 @onready var body: Node2D = $CharacterRig/Body
+@onready var particlesWalking: GPUParticles2D = $CharacterRig/Particles/ParticlesWalking
+@onready var particlesLand: GPUParticles2D = $CharacterRig/Particles/ParticlesLand
+@onready var particlesJump: GPUParticles2D = $CharacterRig/Particles/ParticlesJump
+@onready var particlesJumpWall: GPUParticles2D =  $CharacterRig/Particles/ParticlesJumpWall
+@onready var particlesJumpDouble: GPUParticles2D = $CharacterRig/Particles/ParticlesJumpDouble
+@onready var particlesJumpTriple: GPUParticles2D = $CharacterRig/Particles/ParticlesJumpTriple
+@onready var particlesDashSide: GPUParticles2D =  $CharacterRig/Particles/ParticlesDashSide
+@onready var particlesDashUp: GPUParticles2D =  $CharacterRig/Particles/ParticlesDashUp
+@onready var particlesDashDown: GPUParticles2D =  $CharacterRig/Particles/ParticlesDashDown
+@onready var particlesWallSlide: GPUParticles2D =  $CharacterRig/Particles/ParticlesWallSlide
+@onready var particlesWallClimb: GPUParticles2D =  $CharacterRig/Particles/ParticlesWallClimb
+@onready var coyoteJumpTimer: Timer = $Timers/CoyoteJumpTimer
 
 var eyeDirection: int = 1 #TODO: randomizer on spawn
 var moveDirection: Vector2 = Vector2.ZERO
@@ -18,6 +29,8 @@ var lastAimDirection: Vector2 = Vector2.ZERO
 var aimStrength: Vector2 = Vector2.ZERO
 var groundAngle: float
 var velocityRotated: Vector2 = Vector2.ZERO
+
+var facing: int
 
 func _ready() -> void:
 	sm.init()
@@ -32,7 +45,7 @@ func _physics_process(delta: float) -> void:
 	sm.state_check(delta)
 
 	get_move_input()
-	facing()
+	facing_logic()
 	EventBus.emit_signal("debugVelocity", velocity.round())
 	EventBus.emit_signal("debug", is_on_floor())
 
@@ -56,29 +69,18 @@ func get_move_input() -> void:
 		lastMoveDirection = moveDirection
 
 
-
-func facing():
+func facing_logic():
+	#FIXME: breaks with crouch state
 	#TODO: need to be able to send variables
 	if moveDirection.x == 1 and eyeDirection == -1:
 		var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 		tween.tween_property(eyes, "position", Vector2(0, eyes.position.y), 0.2).from_current()
 #		eyes.position.x = 0
 		eyeDirection = 1
+		facing = -eyeDirection
 	if moveDirection.x == -1  and eyeDirection == 1:
 		var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 		tween.tween_property(eyes, "position", Vector2(-8, eyes.position.y), 0.2).from_current()
 #		eyes.position.x = -8
 		eyeDirection = -1
-
-func get_rot(): #FIXME: spins weird
-	var d = 16
-	var circumference = d * PI
-	var rotation = (velocity.x / circumference) * (2*PI) 
-	var rotate_amount: float
-
-	if velocity.x <= 0:
-		rotate_amount = -abs(rotation)
-	else:
-		rotate_amount = abs(rotation)
-
-	return rotate_amount
+		facing = -eyeDirection
