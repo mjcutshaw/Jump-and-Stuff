@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://pp6ddxrx0paq"]
+[gd_scene load_steps=32 format=3 uid="uid://pp6ddxrx0paq"]
 
 [ext_resource type="Script" path="res://src/actors/player/player.gd" id="1_a3yhc"]
 [ext_resource type="Script" path="res://src/actors/player/scripts/CharacterRig.gd" id="2_i63he"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://src/actors/player/states/jump.gd" id="8_8a3ob"]
 [ext_resource type="Script" path="res://src/actors/player/crouch.gd" id="9_44nuy"]
 [ext_resource type="Script" path="res://src/actors/player/states/fall.gd" id="9_hid0t"]
+[ext_resource type="Script" path="res://src/actors/player/states/turbo.gd" id="11_ftfyh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jx3rl"]
 radius = 16.0
@@ -263,6 +264,8 @@ _data = {
 collision_layer = 64
 collision_mask = 2
 floor_block_on_wall = false
+floor_max_angle = 0.767945
+floor_snap_length = 32.0
 script = ExtResource("1_a3yhc")
 
 [node name="BodyCollision" type="CollisionShape2D" parent="."]
@@ -430,6 +433,9 @@ script = ExtResource("9_hid0t")
 
 [node name="Crouch" type="Node" parent="StateMachine"]
 script = ExtResource("9_44nuy")
+
+[node name="Turbo" type="Node" parent="StateMachine"]
+script = ExtResource("11_ftfyh")
 
 [node name="Raycasts" type="Node2D" parent="."]
 visible = false

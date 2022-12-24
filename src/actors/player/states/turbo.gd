@@ -1,5 +1,4 @@
 extends PlayerState
-#TODO: better reaction to going to a slope that is too steep
 
 var gravity = 100
 #TODO: get friction from enviroment
@@ -15,13 +14,21 @@ func exit() -> void:
 
 
 func physics(delta) -> void:
-	player.move_and_slide()
-	if player.moveDirection.x != 0:
+	if player.moveDirection.x != 0: #TODO: remove
 		if abs(player.velocity.x) < stats.moveSpeed:
 			player.velocity.x = move_toward(abs(player.velocity.x), stats.moveSpeed, stats.accelerationGround) * player.moveDirection.x
 	else:
 		player.velocity.x = move_toward(player.velocity.x, 0, stats.frictionGround)
-
+	#TODO: skid, jump reverse
+#	if player.is_on_wall():
+#		player.velocity.x = 0
+	#TODO: move to PSpeed state with
+	player.velocity.y += gravity * delta
+	player.set_up_direction(-player.transform.y)
+	player.velocity = player.velocity.rotated(player.rotation)
+	player.move_and_slide()
+	player.velocity = player.velocity.rotated(-player.rotation)
+	
 	player.rotation = player.get_floor_normal().angle() + PI/2 #FIXME: turn off if on ledge
 
 
@@ -46,8 +53,8 @@ func state_check(delta: float) -> int:
 	if !player.is_on_floor():
 		player.coyoteJumpTimer.start()
 		return State.Fall
-	if abs(player.velocity.x) > stats.moveSpeed:
-		return State.Turbo
+	if abs(player.velocity.x) < stats.moveSpeeed:
+		return State.Walk
 	if player.velocity.x == 0:
 		return State.Idle
 

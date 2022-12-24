@@ -6,6 +6,7 @@ extends Node
 #	PlayerState.State.Die: $Die,
 	PlayerState.State.Idle: $Idle,
 	PlayerState.State.Walk: $Walk,
+	PlayerState.State.Turbo: $Turbo,
 	PlayerState.State.Crouch: $Crouch,
 	PlayerState.State.Jump: $Jump,
 #	PlayerState.State.JumpAir: $JumpAir,
