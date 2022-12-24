@@ -5,10 +5,10 @@ var JMP = 2000
 #TODO: bring in proper stats and functions
 
 func enter() -> void:
-	player.particlesJump.restart()
+	player.particles.jump.restart()
 	player.sounds.jump.play()
 	player.velocity.y = -2000
-	player.timerCoyoteJump.stop()
+	player.timers.coyoteJump.stop()
 
 
 func exit() -> void:

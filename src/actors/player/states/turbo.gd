@@ -51,7 +51,7 @@ func handle_input(event: InputEvent) -> int:
 
 func state_check(delta: float) -> int:
 	if !player.is_on_floor():
-		player.timerCoyoteJump.start()
+		player.timers.coyoteJump.start()
 		return State.Fall
 	if abs(player.velocity.x) < moveSpeed:
 		return State.Walk
