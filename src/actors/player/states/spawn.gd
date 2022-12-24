@@ -1,4 +1,4 @@
-extends PlayerState
+extends PlayerInfo
 
 @export var transformTime: float = 0.4
 

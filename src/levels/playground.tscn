@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/levels/playground.gd" id="1_fgo7i"]
 [ext_resource type="Script" path="res://src/object/prefab/scripts/DrawCollisionShape2D.gd" id="1_isl6d"]
 [ext_resource type="Script" path="res://src/debug/Info.gd" id="2_slpti"]
-[ext_resource type="PackedScene" uid="uid://bl23ka5i1boii" path="res://src/actors/player/player.tscn" id="3_m0pk1"]
+[ext_resource type="PackedScene" uid="uid://b1oey5f82x36e" path="res://src/actors/player/player.tscn" id="3_m0pk1"]
 [ext_resource type="PackedScene" uid="uid://bhto12bvuu2p" path="res://src/object/prefab/drawableTerrain.tscn" id="4_ypsbw"]
 [ext_resource type="Script" path="res://src/levels/POLY.gd" id="5_e68rw"]
 
@@ -11,16 +11,16 @@
 radius = 204.43
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l1c3o"]
-size = Vector2(1310, 32)
+size = Vector2(6160, 64)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_84nwl"]
 radius = 574.78
 
 [sub_resource type="Curve2D" id="Curve2D_j04xt"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -2, -97, -473.958, 203.125, 473.958, -203.125, 1309, -339, 0, 0, 0, 0, 1582, -903, 0, 0, 0, 0, 1782, -756, 0, 0, 0, 0, 1812, -182, 0, 0, 0, 0, -2, -97)
+"points": PackedVector2Array(0, 0, 0, 0, -2, -97, -473.958, 203.125, 473.958, -203.125, 1309, -339, 0, 0, 0, 0, 1582, -903, 0, 0, 0, 0, 1782, -756, 0, 0, 0, 0, 1812, -182, 0, 0, 0, 0, 1518.54, -168.948, 0, 0, 0, 0, -2, -97)
 }
-point_count = 6
+point_count = 7
 
 [sub_resource type="Curve2D" id="Curve2D_1a0bp"]
 _data = {
@@ -104,7 +104,7 @@ collision_mask = 0
 metadata/_edit_lock_ = true
 
 [node name="intro" type="CollisionShape2D" parent="ground/Ground"]
-position = Vector2(-456, 16)
+position = Vector2(2008, 32)
 shape = SubResource("RectangleShape2D_l1c3o")
 script = ExtResource("1_isl6d")
 
@@ -114,13 +114,14 @@ shape = SubResource("CircleShape2D_84nwl")
 script = ExtResource("1_isl6d")
 
 [node name="StaticBody2D" parent="ground" instance=ExtResource("4_ypsbw")]
+position = Vector2(-528, 704)
 
 [node name="Path2D" parent="ground/StaticBody2D" index="3"]
-position = Vector2(8, -32)
+position = Vector2(-1032, 1832)
 curve = SubResource("Curve2D_j04xt")
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="ground"]
-position = Vector2(-952, 64)
+position = Vector2(-968, 248)
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("5_e68rw")
@@ -138,7 +139,7 @@ default_color = Color(0, 0.568627, 0, 1)
 curve = SubResource("Curve2D_1a0bp")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="ground"]
-position = Vector2(317, 1148)
+position = Vector2(376, 1464)
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("5_e68rw")
