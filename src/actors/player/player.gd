@@ -7,6 +7,8 @@ var stats: Resource = preload("res://src/actors/player/resources/playerStats.tre
 @onready var characterRig: Node2D = $CharacterRig
 @onready var eyes: Node2D = $CharacterRig/Eyes
 @onready var body: Node2D = $CharacterRig/Body
+@onready var particles: Node2D = $CharacterRig/Particles
+
 @onready var particlesWalking: GPUParticles2D = $CharacterRig/Particles/ParticlesWalking
 @onready var particlesLand: GPUParticles2D = $CharacterRig/Particles/ParticlesLand
 @onready var particlesJump: GPUParticles2D = $CharacterRig/Particles/ParticlesJump
@@ -18,7 +20,10 @@ var stats: Resource = preload("res://src/actors/player/resources/playerStats.tre
 @onready var particlesDashDown: GPUParticles2D =  $CharacterRig/Particles/ParticlesDashDown
 @onready var particlesWallSlide: GPUParticles2D =  $CharacterRig/Particles/ParticlesWallSlide
 @onready var particlesWallClimb: GPUParticles2D =  $CharacterRig/Particles/ParticlesWallClimb
-@onready var coyoteJumpTimer: Timer = $Timers/CoyoteJumpTimer
+
+@onready var timerCoyoteJump: Timer = $Timers/CoyoteJump
+
+@onready var sounds: Node = $Sounds
 
 var eyeDirection: int = 1 #TODO: randomizer on spawn
 var moveDirection: Vector2 = Vector2.ZERO
@@ -77,10 +82,12 @@ func facing_logic():
 		tween.tween_property(eyes, "position", Vector2(0, eyes.position.y), 0.2).from_current()
 #		eyes.position.x = 0
 		eyeDirection = 1
+		particles.scale.x = 1
 		facing = -eyeDirection
 	if moveDirection.x == -1  and eyeDirection == 1:
 		var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 		tween.tween_property(eyes, "position", Vector2(-8, eyes.position.y), 0.2).from_current()
 #		eyes.position.x = -8
 		eyeDirection = -1
+		particles.scale.x = -1
 		facing = -eyeDirection

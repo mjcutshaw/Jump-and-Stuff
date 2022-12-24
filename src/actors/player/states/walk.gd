@@ -1,9 +1,9 @@
-extends PlayerState
-#TODO: better reaction to going to a slope that is too steep
+extends PlayerInfo
 
-var gravity = 100
+#TODO: better reaction to going to a slope that is too steep
 #TODO: get friction from enviroment
 #TODO: momentum logic, ledge stop, coyote timers
+
 
 func enter() -> void:
 	player.animPlayer.play("walk")
@@ -12,13 +12,14 @@ func enter() -> void:
 
 func exit() -> void:
 	player.particlesWalking.emitting = false
+	player.sounds.walk.stop()
 
 
 func physics(delta) -> void:
 	player.move_and_slide()
 	if player.moveDirection.x != 0:
-		if abs(player.velocity.x) < stats.moveSpeed:
-			player.velocity.x = move_toward(abs(player.velocity.x), stats.moveSpeed, stats.accelerationGround) * player.moveDirection.x
+		if abs(player.velocity.x) < moveSpeed:
+			player.velocity.x = move_toward(abs(player.velocity.x), moveSpeed, stats.accelerationGround) * player.moveDirection.x
 	else:
 		player.velocity.x = move_toward(player.velocity.x, 0, stats.frictionGround)
 
@@ -26,11 +27,13 @@ func physics(delta) -> void:
 
 
 func visual(delta) -> void:
-	player.characterRig.skew = remap(player.velocity.x, 0, abs(stats.moveSpeed), 0.0, 0.1)
+	player.characterRig.skew = remap(player.velocity.x, 0, abs(moveSpeed), 0.0, 0.1)
 
 
 func sound(delta: float) -> void:
-	pass
+	if !player.sounds.walk.playing:
+		player.sounds.walk.pitch_scale = randf_range(0.8, 1.2)
+		player.sounds.walk.play()
 
 
 func handle_input(event: InputEvent) -> int:
@@ -44,7 +47,7 @@ func handle_input(event: InputEvent) -> int:
 
 func state_check(delta: float) -> int:
 	if !player.is_on_floor():
-		player.coyoteJumpTimer.start()
+		player.timerCoyoteJump.start()
 		return State.Fall
 	if abs(player.velocity.x) > stats.moveSpeed:
 		return State.Turbo

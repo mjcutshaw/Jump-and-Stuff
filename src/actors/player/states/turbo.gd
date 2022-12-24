@@ -1,4 +1,4 @@
-extends PlayerState
+extends PlayerInfo
 
 var gravity = 100
 #TODO: get friction from enviroment
@@ -15,8 +15,8 @@ func exit() -> void:
 
 func physics(delta) -> void:
 	if player.moveDirection.x != 0: #TODO: remove
-		if abs(player.velocity.x) < stats.moveSpeed:
-			player.velocity.x = move_toward(abs(player.velocity.x), stats.moveSpeed, stats.accelerationGround) * player.moveDirection.x
+		if abs(player.velocity.x) < moveSpeed:
+			player.velocity.x = move_toward(abs(player.velocity.x), moveSpeed, stats.accelerationGround) * player.moveDirection.x
 	else:
 		player.velocity.x = move_toward(player.velocity.x, 0, stats.frictionGround)
 	#TODO: skid, jump reverse
@@ -33,7 +33,7 @@ func physics(delta) -> void:
 
 
 func visual(delta) -> void:
-	player.characterRig.skew = remap(player.velocity.x, 0, abs(stats.moveSpeed), 0.0, 0.1)
+	player.characterRig.skew = remap(player.velocity.x, 0, abs(moveSpeed), 0.0, 0.1)
 
 
 func sound(delta: float) -> void:
@@ -51,9 +51,9 @@ func handle_input(event: InputEvent) -> int:
 
 func state_check(delta: float) -> int:
 	if !player.is_on_floor():
-		player.coyoteJumpTimer.start()
+		player.timerCoyoteJump.start()
 		return State.Fall
-	if abs(player.velocity.x) < stats.moveSpeeed:
+	if abs(player.velocity.x) < moveSpeed:
 		return State.Walk
 	if player.velocity.x == 0:
 		return State.Idle

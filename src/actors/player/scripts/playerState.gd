@@ -1,8 +1,7 @@
 extends Node
 class_name PlayerState
 
-var stats: Resource = preload("res://src/actors/player/resources/playerStats.tres")
-var abilities: Resource = preload("res://src/actors/player/resources/playerAbilities.tres")
+
 
 enum State {
 	Null,

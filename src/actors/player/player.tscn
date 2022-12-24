@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://pp6ddxrx0paq"]
+[gd_scene load_steps=37 format=3 uid="uid://bl23ka5i1boii"]
 
 [ext_resource type="Script" path="res://src/actors/player/player.gd" id="1_a3yhc"]
 [ext_resource type="Script" path="res://src/actors/player/scripts/CharacterRig.gd" id="2_i63he"]
@@ -8,9 +8,14 @@
 [ext_resource type="Script" path="res://src/actors/player/states/walk.gd" id="6_w0a7b"]
 [ext_resource type="Script" path="res://src/actors/player/states/idle.gd" id="7_rx8in"]
 [ext_resource type="Script" path="res://src/actors/player/states/jump.gd" id="8_8a3ob"]
-[ext_resource type="Script" path="res://src/actors/player/crouch.gd" id="9_44nuy"]
 [ext_resource type="Script" path="res://src/actors/player/states/fall.gd" id="9_hid0t"]
+[ext_resource type="Script" path="res://src/actors/player/states/crouch.gd" id="10_tmkpe"]
 [ext_resource type="Script" path="res://src/actors/player/states/turbo.gd" id="11_ftfyh"]
+[ext_resource type="Script" path="res://src/actors/player/states/wallslide.gd" id="12_x0xop"]
+[ext_resource type="Script" path="res://src/actors/player/sounds.gd" id="13_qgcoo"]
+[ext_resource type="AudioStream" uid="uid://c655mcgbweid5" path="res://asset/sounds/player/footstep.wav" id="14_jye2v"]
+[ext_resource type="AudioStream" uid="uid://bnbv8tr478gqg" path="res://asset/sounds/player/land.wav" id="15_7oeww"]
+[ext_resource type="AudioStream" uid="uid://btfvrwbgkgyal" path="res://asset/sounds/player/jump.wav" id="16_51c2n"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jx3rl"]
 radius = 16.0
@@ -432,10 +437,13 @@ script = ExtResource("8_8a3ob")
 script = ExtResource("9_hid0t")
 
 [node name="Crouch" type="Node" parent="StateMachine"]
-script = ExtResource("9_44nuy")
+script = ExtResource("10_tmkpe")
 
 [node name="Turbo" type="Node" parent="StateMachine"]
 script = ExtResource("11_ftfyh")
+
+[node name="WallSlide" type="Node" parent="StateMachine"]
+script = ExtResource("12_x0xop")
 
 [node name="Raycasts" type="Node2D" parent="."]
 visible = false
@@ -459,6 +467,24 @@ libraries = {
 
 [node name="Timers" type="Node" parent="."]
 
-[node name="CoyoteJumpTimer" type="Timer" parent="Timers"]
+[node name="CoyoteJump" type="Timer" parent="Timers"]
 wait_time = 0.1
 one_shot = true
+
+[node name="Sounds" type="Node" parent="."]
+script = ExtResource("13_qgcoo")
+
+[node name="walk" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("14_jye2v")
+volume_db = -20.8
+bus = &"Player"
+
+[node name="land" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("15_7oeww")
+volume_db = -1.3
+bus = &"Player"
+
+[node name="jump" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("16_51c2n")
+volume_db = -1.3
+bus = &"Player"

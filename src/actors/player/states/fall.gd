@@ -35,8 +35,8 @@ func sound(delta: float) -> void:
 
 func handle_input(event: InputEvent) -> int:
 	if Input.is_action_just_pressed("jump"):
-		if !player.coyoteJumpTimer.is_stopped(): #leave ground, but stil can jump
-			player.coyoteJumpTimer.stop()
+		if !player.timerCoyoteJump.is_stopped(): #leave ground, but stil can jump
+			player.timerCoyoteJump.stop()
 			EventBus.emit_signal("helperUsed", Util.helper.coyoteJump)
 			return State.Jump
 
@@ -45,6 +45,7 @@ func handle_input(event: InputEvent) -> int:
 
 func state_check(delta: float) -> int:
 	if player.is_on_floor():
+		player.sounds.land.play()
 		player.particlesLand.restart()
 		player.rotation = player.get_floor_normal().angle() + PI/2 #TODO: better ground detection
 		if player.moveDirection.x != 0:

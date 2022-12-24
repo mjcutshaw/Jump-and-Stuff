@@ -6,8 +6,9 @@ var JMP = 2000
 
 func enter() -> void:
 	player.particlesJump.restart()
+	player.sounds.jump.play()
 	player.velocity.y = -2000
-	player.coyoteJumpTimer.stop()
+	player.timerCoyoteJump.stop()
 
 
 func exit() -> void:
