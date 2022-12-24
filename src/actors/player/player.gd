@@ -8,21 +8,7 @@ var stats: Resource = preload("res://src/actors/player/resources/playerStats.tre
 @onready var eyes: Node2D = $CharacterRig/Eyes
 @onready var body: Node2D = $CharacterRig/Body
 @onready var particles: Node2D = $CharacterRig/Particles
-
-@onready var particlesWalking: GPUParticles2D = $CharacterRig/Particles/ParticlesWalking
-@onready var particlesLand: GPUParticles2D = $CharacterRig/Particles/ParticlesLand
-@onready var particlesJump: GPUParticles2D = $CharacterRig/Particles/ParticlesJump
-@onready var particlesJumpWall: GPUParticles2D =  $CharacterRig/Particles/ParticlesJumpWall
-@onready var particlesJumpDouble: GPUParticles2D = $CharacterRig/Particles/ParticlesJumpDouble
-@onready var particlesJumpTriple: GPUParticles2D = $CharacterRig/Particles/ParticlesJumpTriple
-@onready var particlesDashSide: GPUParticles2D =  $CharacterRig/Particles/ParticlesDashSide
-@onready var particlesDashUp: GPUParticles2D =  $CharacterRig/Particles/ParticlesDashUp
-@onready var particlesDashDown: GPUParticles2D =  $CharacterRig/Particles/ParticlesDashDown
-@onready var particlesWallSlide: GPUParticles2D =  $CharacterRig/Particles/ParticlesWallSlide
-@onready var particlesWallClimb: GPUParticles2D =  $CharacterRig/Particles/ParticlesWallClimb
-
-@onready var timerCoyoteJump: Timer = $Timers/CoyoteJump
-
+@onready var timers: Node = $Timers
 @onready var sounds: Node = $Sounds
 
 var eyeDirection: int = 1 #TODO: randomizer on spawn
@@ -34,6 +20,8 @@ var lastAimDirection: Vector2 = Vector2.ZERO
 var aimStrength: Vector2 = Vector2.ZERO
 var groundAngle: float
 var velocityRotated: Vector2 = Vector2.ZERO
+
+var neutralMoveDirection: bool = false
 
 var facing: int
 
@@ -52,7 +40,6 @@ func _physics_process(delta: float) -> void:
 	get_move_input()
 	facing_logic()
 	EventBus.emit_signal("debugVelocity", velocity.round())
-	EventBus.emit_signal("debug", is_on_floor())
 
 
 func _process(delta: float) -> void:
@@ -73,7 +60,7 @@ func get_move_input() -> void:
 	if moveDirection != Vector2.ZERO:
 		lastMoveDirection = moveDirection
 
-
+#LOOKAT: maybe move these to playerinfo
 func facing_logic():
 	#FIXME: breaks with crouch state
 	#TODO: need to be able to send variables
@@ -91,3 +78,31 @@ func facing_logic():
 		eyeDirection = -1
 		particles.scale.x = -1
 		facing = -eyeDirection
+
+
+func momentum_logic(speed, useMoveDirection: bool = true) -> void:
+	#FIXME: redo this. not good velocity mechanic
+	if useMoveDirection:
+		velocity.x = moveStrength.x * max(abs(speed), abs(velocity.x))
+	if !useMoveDirection:
+		if velocity.x == 0:
+			velocity.x = velocity.x
+		else:
+			velocity.x =  max(abs(speed), abs(velocity.x)) * sign(velocity.x) 
+
+
+func neutral_air_momentum_logic(speed):
+	if !neutralMoveDirection:
+		momentum_logic(speed)
+	if neutralMoveDirection: ## Carry momentum with nuetral moveDirection ##
+		momentum_logic(speed, false)
+	if moveDirection != Vector2.ZERO and neutralMoveDirection: ## Cancel out nuetral momentum
+		await get_tree().create_timer(0.1).timeout
+		neutralMoveDirection = false
+
+
+func neutral_move_direction_logic() -> void:
+	if moveDirection == Vector2.ZERO:
+		neutralMoveDirection = true
+	else:
+		neutralMoveDirection = false

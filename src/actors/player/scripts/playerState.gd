@@ -11,6 +11,7 @@ enum State {
 	Idle,
 	Walk,
 	Turbo,
+	Skid,
 	Crouch,
 	Jump,
 	JumpAir,
@@ -30,7 +31,7 @@ enum State {
 	HookShot,
 	Swim,
 	SwimDash,
-	Skid,
+	
 	FallDamage,
 	Bonk,
 }

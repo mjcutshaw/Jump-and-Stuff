@@ -3,31 +3,35 @@ extends PlayerInfo
 #TODO: better reaction to going to a slope that is too steep
 #TODO: get friction from enviroment
 #TODO: momentum logic, ledge stop, coyote timers
-
+@export var skidPercent: float = 0.8
+var skidding: bool = false
 
 func enter() -> void:
 	player.animPlayer.play("walk")
-	player.particlesWalking.emitting = true
+	player.particles.walk.emitting = true
+	skidding = false
 
 
 func exit() -> void:
-	player.particlesWalking.emitting = false
+	player.particles.walk.emitting = false
 	player.sounds.walk.stop()
 
 
 func physics(delta) -> void:
 	player.move_and_slide()
+	if abs(player.velocity.x) > moveSpeed * skidPercent  and player.moveDirection.x != 0 and (sign(player.velocity.x) != player.moveDirection.x):
+		skidding = true
 	if player.moveDirection.x != 0:
 		if abs(player.velocity.x) < moveSpeed:
-			player.velocity.x = move_toward(abs(player.velocity.x), moveSpeed, stats.accelerationGround) * player.moveDirection.x
+			apply_acceleration(accelerationGround)
 	else:
-		player.velocity.x = move_toward(player.velocity.x, 0, stats.frictionGround)
+		apply_friction(frictionGround)
 
-	player.rotation = player.get_floor_normal().angle() + PI/2 #FIXME: turn off if on ledge
+	player.rotation = player.get_floor_normal().angle() + PI/2 #FIXME: turn off if on ledge, need to use raycast to check ground
 
 
 func visual(delta) -> void:
-	player.characterRig.skew = remap(player.velocity.x, 0, abs(moveSpeed), 0.0, 0.1)
+	speed_bend(false)
 
 
 func sound(delta: float) -> void:
@@ -46,11 +50,13 @@ func handle_input(event: InputEvent) -> int:
 
 
 func state_check(delta: float) -> int:
+	if skidding:
+		return State.Skid
 	if !player.is_on_floor():
-		player.timerCoyoteJump.start()
+		player.timers.coyoteJump.start()
 		return State.Fall
-	if abs(player.velocity.x) > stats.moveSpeed:
-		return State.Turbo
+#	if abs(player.velocity.x) > stats.moveSpeed:
+#		return State.Turbo
 	if player.velocity.x == 0:
 		return State.Idle
 

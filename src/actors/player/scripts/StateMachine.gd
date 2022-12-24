@@ -7,6 +7,7 @@ extends Node
 	PlayerState.State.Idle: $Idle,
 	PlayerState.State.Walk: $Walk,
 	PlayerState.State.Turbo: $Turbo,
+	PlayerState.State.Skid: $Skid,
 	PlayerState.State.Crouch: $Crouch,
 	PlayerState.State.Jump: $Jump,
 #	PlayerState.State.JumpAir: $JumpAir,
@@ -28,7 +29,6 @@ extends Node
 #	PlayerState.State.HookShot: $HookShot,
 #	PlayerState.State.Swim: $Swim,
 #	PlayerState.State.SwimDash: $SwimDash,
-#	PlayerState.State.Skid: $Skid,
 #	PlayerState.State.FallDamage: $FallDamage,
 #	PlayerState.State.Bonk: $Bonk,
 }

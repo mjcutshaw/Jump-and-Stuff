@@ -1,11 +1,15 @@
 extends PlayerState
 
+var transformTime: float = 0.1
 
 func enter() -> void:
 	## Pulls player off the wall
 	#TODO: check rotation to move off wall
 	player.velocity = Vector2(0, 10)
 	player.set_up_direction(Vector2.UP)
+	if player.characterRig.skew != 0:
+		var tween = create_tween() #LOOKAT: move to player info
+		tween.tween_property(player.characterRig, "skew", 0, transformTime).from_current()
 
 
 func exit() -> void:
@@ -15,7 +19,7 @@ func exit() -> void:
 func physics(delta) -> void:
 	player.move_and_slide()
 
-#	player.rotation = player.get_floor_normal().angle() + PI/2
+#	player.rotation = player.get_floor_normal().angle() + PI/2 #FIXME: bring back
 
 func visual(delta) -> void:
 	pass
