@@ -1,6 +1,7 @@
 extends Node
 
 signal playerHealthChanged
+signal playerStatsUpdate
 
 signal debugState(info)
 signal debugVelocity(info)
