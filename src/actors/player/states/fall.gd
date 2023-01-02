@@ -1,7 +1,7 @@
-extends PlayerState
+extends PlayerInfo
 
 #TODO: hold down to pass through semisolids
-var gravity = 4000
+
 #FIXME: breaks going from walk to fall
 
 func enter() -> void:
@@ -18,12 +18,10 @@ func exit() -> void:
 
 
 func physics(delta) -> void:
-	player.velocity.y += gravity * delta
+	gravity_logic(gravityFall, delta)
 #	player.set_up_direction(-player.global_transform.y)
 #	player.velocity = player.velocity.rotated(0)
 	player.move_and_slide()
-	
-
 
 
 func visual(delta) -> void:

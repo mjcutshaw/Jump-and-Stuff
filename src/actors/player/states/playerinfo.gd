@@ -7,16 +7,35 @@ var stats: Resource = preload("res://src/actors/player/resources/playerStats.tre
 var abilities: Resource = preload("res://src/actors/player/resources/playerAbilities.tres")
 
 var moveSpeed: int
+var jumpVelocity: float
+var gravityJump: float
+var gravityFall: float
 
-@onready var accelerationGround: float = .3 * Util.tileSize
-@onready var frictionGround: float = .5 * Util.tileSize
+var accelerationGround: float
+var frictionGround: float
 
 func _ready() -> void:
 	update_stats()
 	EventBus.connect("playerStatsUpdate", update_stats)
 
 func update_stats() -> void:
+	var jumpHeight: float
+	
 	moveSpeed = stats.baseSpeed * Util.tileSize
+	
+	accelerationGround = stats.accelerationGround * Util.tileSize
+	frictionGround = stats.frictionGround * Util.tileSize
+	
+	jumpHeight = stats.baseJumpHeight * Util.tileSize
+	gravityJump = 2 * jumpHeight / pow(stats.jumpTimeToPeak, 2)
+	gravityFall = 2 * jumpHeight / pow(stats.jumpTimeToDescent, 2)
+	jumpVelocity = -sqrt(2 * gravityJump * jumpHeight)
+	
+	#FIXME: why called 4 times
+
+
+func gravity_logic(amount, delta) -> void:
+	player.velocity.y += amount * delta
 
 
 func apply_acceleration(amount) -> void:

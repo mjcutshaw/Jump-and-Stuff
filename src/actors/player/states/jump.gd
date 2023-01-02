@@ -1,13 +1,11 @@
-extends PlayerState
+extends PlayerInfo
 
-var gravity = 4000
-var JMP = 2000
 #TODO: bring in proper stats and functions
 
 func enter() -> void:
 	player.particles.jump.restart()
 	player.sounds.jump.play()
-	player.velocity.y = -2000
+	player.velocity.y = jumpVelocity
 	player.timers.coyoteJump.stop()
 
 
@@ -16,7 +14,7 @@ func exit() -> void:
 
 
 func physics(delta) -> void:
-	player.velocity.y += gravity * delta
+	gravity_logic(gravityJump, delta)
 	player.set_up_direction(-player.transform.y)
 	player.velocity = player.velocity.rotated(player.rotation)
 	player.move_and_slide()

@@ -1,5 +1,6 @@
 extends PlayerState
 
+#TODO: slide up wall from momentum
 
 func enter() -> void:
 	pass
