@@ -10,6 +10,8 @@ extends Node
 	PlayerState.State.Skid: $Skid,
 	PlayerState.State.Crouch: $Crouch,
 	PlayerState.State.Jump: $Jump,
+	PlayerState.State.JumpDouble: $JumpDouble,
+	PlayerState.State.JumpTriple: $JumpTriple,
 #	PlayerState.State.JumpAir: $JumpAir,
 #	PlayerState.State.JumpWall: $JumpWall,
 #	PlayerState.State.JumpReverse: $JumpReverse,

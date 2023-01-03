@@ -1,4 +1,4 @@
-extends PlayerState
+extends PlayerInfo
 
 var transformTime: float = 0.1
 
@@ -29,7 +29,7 @@ func handle_input(event: InputEvent) -> int:
 	if Input.is_action_pressed("crouch"): 
 		return State.Crouch
 	if Input.is_action_just_pressed("jump"):
-		return State.Jump
+		return consecutive_jump_logic()
 
 	return State.Null
 

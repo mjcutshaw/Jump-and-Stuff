@@ -47,6 +47,7 @@ func state_check(delta: float) -> int:
 		player.sounds.land.play()
 		player.particles.land.restart()
 		player.rotation = player.get_floor_normal().angle() + PI/2 #TODO: better ground detection
+		player.timers.consecutiveJump.start()
 		if player.moveDirection.x != 0:
 			return State.Walk
 		else:

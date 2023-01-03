@@ -2,7 +2,16 @@ extends Node
 
 
 @onready var coyoteJump: Timer = $CoyoteJump
-## sets timers to one shot ##
-#func _ready() -> void:
+@onready var consecutiveJump: Timer = $ConsecutiveJump
+
+
+
+func _ready() -> void:
+	## sets timers to one shot ##
 #	for timers in get_children():
 #		timers.one_shot = true
+	
+	consecutiveJump.timeout.connect(consecutive_jump_timeout)
+
+func consecutive_jump_timeout() -> void:
+	EventBus.emit_signal("playerConsecutiveJump")

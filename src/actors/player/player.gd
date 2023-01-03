@@ -25,6 +25,9 @@ var neutralMoveDirection: bool = false
 
 var facing: int
 
+var jumped: bool
+var jumpedDouble: bool
+
 func _ready() -> void:
 	sm.init()
 

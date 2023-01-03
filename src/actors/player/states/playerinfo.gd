@@ -17,6 +17,7 @@ var frictionGround: float
 func _ready() -> void:
 	update_stats()
 	EventBus.connect("playerStatsUpdate", update_stats)
+	EventBus.connect("playerConsecutiveJump", consecutive_jump_cancel)
 
 func update_stats() -> void:
 	var jumpHeight: float
@@ -30,8 +31,8 @@ func update_stats() -> void:
 	gravityJump = 2 * jumpHeight / pow(stats.jumpTimeToPeak, 2)
 	gravityFall = 2 * jumpHeight / pow(stats.jumpTimeToDescent, 2)
 	jumpVelocity = -sqrt(2 * gravityJump * jumpHeight)
-	
-	#FIXME: why called 4 times
+
+	#FIXME: called for every state
 
 
 func gravity_logic(amount, delta) -> void:
@@ -54,3 +55,17 @@ func speed_bend(forwardLean: bool = true, topSpeed = moveSpeed, leanAmount: floa
 		player.characterRig.skew = remap(-player.velocity.x, 0, topSpeed, 0.0, leanAmount)
 
 #TODO: squash and strech, landing squish
+
+func consecutive_jump_logic() -> int:
+	if player.jumped:
+		return State.JumpDouble
+	elif player.jumpedDouble:
+		return State.JumpTriple
+	else:
+		return State.Jump
+
+func consecutive_jump_cancel() -> void:
+	#LOOKAT: only canceled from falls and canceled jumps. watch other states for extra jumps
+	#TODO: make landed function to call
+	player.jumped = false
+	player.jumpedDouble = false

@@ -1,17 +1,21 @@
 extends PlayerInfo
 
-#TODO: bring in proper stats and functions
+@export var jumpModifier: float = 1.25
 
 func enter() -> void:
-	player.particles.jump.restart()
+	player.sounds.jump.pitch_scale = jumpModifier
 	player.sounds.jump.play()
-	player.velocity.y = jumpVelocity
+	player.particles.jumpDouble.restart()
+	player.velocity.y = jumpVelocity * jumpModifier
 	player.timers.coyoteJump.stop()
-	player.jumped = true
+	player.timers.consecutiveJump.stop()
+	player.jumpedDouble = true
+	player.jumped = false
 
 
 func exit() -> void:
-	pass
+	player.sounds.jump.pitch_scale = 1
+	
 
 
 func physics(delta) -> void:
