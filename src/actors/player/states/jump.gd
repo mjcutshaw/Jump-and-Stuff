@@ -23,7 +23,7 @@ func physics(delta) -> void:
 
 
 func visual(delta) -> void:
-	pass
+	squash_and_stretch(delta)
 
 
 func sound(delta: float) -> void:

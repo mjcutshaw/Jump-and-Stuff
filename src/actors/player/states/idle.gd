@@ -22,7 +22,7 @@ func physics(delta) -> void:
 #	player.rotation = player.get_floor_normal().angle() + PI/2 #FIXME: bring back
 
 func visual(delta) -> void:
-	pass
+	squash_and_stretch(delta)
 
 
 func handle_input(event: InputEvent) -> int:

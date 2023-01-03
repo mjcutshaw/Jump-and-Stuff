@@ -31,6 +31,7 @@ func physics(delta) -> void:
 
 
 func visual(delta) -> void:
+	squash_and_stretch(delta)
 	speed_bend(false)
 
 
