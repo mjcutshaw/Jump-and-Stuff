@@ -11,6 +11,8 @@ var stats: Resource = preload("res://src/actors/player/resources/playerStats.tre
 @onready var particles: Node2D = $CharacterRig/Particles
 @onready var timers: Node = $Timers
 @onready var sounds: Node = $Sounds
+@onready var detectorGroundLeft: RayCast2D = $Raycasts/Ground/Left
+@onready var detectorGroundRight: RayCast2D = $Raycasts/Ground/Right
 
 var eyeDirection: int = 1 #TODO: randomizer on spawn
 var moveDirection: Vector2 = Vector2.ZERO
@@ -29,6 +31,9 @@ var facing: int
 var jumped: bool
 var jumpedDouble: bool
 
+var ledgeLeft: bool
+var ledgeRight: bool
+
 func _ready() -> void:
 	sm.init()
 
@@ -43,6 +48,8 @@ func _physics_process(delta: float) -> void:
 
 	get_move_input()
 	facing_logic()
+	if is_on_floor(): #TODo: create is grounded using floor raycasts
+		ledge_detection()
 	EventBus.emit_signal("debugVelocity", velocity.round())
 
 
@@ -71,42 +78,24 @@ func facing_logic():
 	if moveDirection.x == 1 and eyeDirection == -1:
 		var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 		tween.tween_property(eyes, "position", Vector2(0, eyes.position.y), 0.2).from_current()
-#		eyes.position.x = 0
 		eyeDirection = 1
 		particles.scale.x = 1
 		facing = -eyeDirection
 	if moveDirection.x == -1  and eyeDirection == 1:
 		var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 		tween.tween_property(eyes, "position", Vector2(-8, eyes.position.y), 0.2).from_current()
-#		eyes.position.x = -8
 		eyeDirection = -1
 		particles.scale.x = -1
 		facing = -eyeDirection
 
 
-func momentum_logic(speed, useMoveDirection: bool = true) -> void:
-	#FIXME: redo this. not good velocity mechanic
-	if useMoveDirection:
-		velocity.x = moveStrength.x * max(abs(speed), abs(velocity.x))
-	if !useMoveDirection:
-		if velocity.x == 0:
-			velocity.x = velocity.x
-		else:
-			velocity.x =  max(abs(speed), abs(velocity.x)) * sign(velocity.x) 
-
-
-func neutral_air_momentum_logic(speed):
-	if !neutralMoveDirection:
-		momentum_logic(speed)
-	if neutralMoveDirection: ## Carry momentum with nuetral moveDirection ##
-		momentum_logic(speed, false)
-	if moveDirection != Vector2.ZERO and neutralMoveDirection: ## Cancel out nuetral momentum
-		await get_tree().create_timer(0.1).timeout
-		neutralMoveDirection = false
-
-
-func neutral_move_direction_logic() -> void:
-	if moveDirection == Vector2.ZERO:
-		neutralMoveDirection = true
+func ledge_detection() -> void:
+	if is_on_floor() and !detectorGroundLeft.is_colliding():
+		ledgeLeft = true
 	else:
-		neutralMoveDirection = false
+		ledgeLeft = false
+	
+	if is_on_floor() and !detectorGroundRight.is_colliding():
+		ledgeRight = true
+	else:
+		ledgeRight = false

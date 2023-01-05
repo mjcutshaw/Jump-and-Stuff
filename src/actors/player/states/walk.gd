@@ -2,7 +2,7 @@ extends PlayerInfo
 
 #TODO: better reaction to going to a slope that is too steep
 #TODO: get friction from enviroment
-#TODO: momentum logic, ledge stop, coyote timers
+#TODO: ledge stop
 @export var skidPercent: float = 0.8
 var skidding: bool = false
 
@@ -21,17 +21,15 @@ func physics(delta) -> void:
 	player.move_and_slide()
 	if abs(player.velocity.x) > moveSpeed * skidPercent  and player.moveDirection.x != 0 and (sign(player.velocity.x) != player.moveDirection.x):
 		skidding = true
-#	if player.moveDirection.x != 0:
-#		if abs(player.velocity.x) < moveSpeed:
-#			apply_acceleration(accelerationGround)
-#	else:
-#		apply_friction(frictionGround)
 	elif player.moveDirection.x != 0 and player.velocity.x < moveSpeed:
 		apply_acceleration(accelerationGround)
 	elif player.moveDirection.x == 0:
 		apply_friction(frictionGround)
 	elif player.velocity.x >= moveSpeed:
 		momentum_logic(moveSpeed, true)
+	
+	if player.moveDirection.x == 0 and (player.ledgeLeft or player.ledgeRight): ## stops on ledge w/o input
+		player.velocity.x = move_toward(player.velocity.x, 0, frictionGround)
 
 	player.rotation = player.get_floor_normal().angle() + PI/2 #FIXME: turn off if on ledge, need to use raycast to check ground
 

@@ -491,12 +491,12 @@ visible = false
 
 [node name="Left" type="RayCast2D" parent="Raycasts/Ground"]
 position = Vector2(-16, -16)
-target_position = Vector2(0, 16)
+target_position = Vector2(0, 26)
 collision_mask = 2
 
 [node name="Right" type="RayCast2D" parent="Raycasts/Ground"]
 position = Vector2(16, -16)
-target_position = Vector2(0, 16)
+target_position = Vector2(0, 26)
 collision_mask = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
