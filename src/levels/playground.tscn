@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/levels/playground.gd" id="1_fgo7i"]
 [ext_resource type="Script" path="res://src/object/prefab/scripts/DrawCollisionShape2D.gd" id="1_isl6d"]
 [ext_resource type="Script" path="res://src/debug/Info.gd" id="2_slpti"]
-[ext_resource type="PackedScene" uid="uid://b1oey5f82x36e" path="res://src/actors/player/player.tscn" id="3_m0pk1"]
+[ext_resource type="PackedScene" uid="uid://gtgswep0g2kb" path="res://src/actors/player/player.tscn" id="3_m0pk1"]
 [ext_resource type="PackedScene" uid="uid://bhto12bvuu2p" path="res://src/object/prefab/drawableTerrain.tscn" id="4_ypsbw"]
 [ext_resource type="Script" path="res://src/levels/POLY.gd" id="5_e68rw"]
 

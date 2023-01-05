@@ -31,7 +31,6 @@ func physics(delta) -> void:
 	elif player.moveDirection.x == 0:
 		apply_friction(frictionGround)
 	elif player.velocity.x >= moveSpeed:
-		#TODO: look at not needing moveDirection
 		momentum_logic(moveSpeed, true)
 
 	player.rotation = player.get_floor_normal().angle() + PI/2 #FIXME: turn off if on ledge, need to use raycast to check ground

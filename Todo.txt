@@ -1,18 +1,6 @@
 #TODO 
-Make character BB8
 
-Abilities
-	Jump
-		Variable Height
-			Stop going up when holding jump
-		Wall jumps
-			fancy pants directional jumps
-			combo wall jumps without having to change direction
-			when falling use raycast to check for nearby walls
-		Side flip
-			reverse momentum
-		regrab, fall faster when jump held during fall
-		check if close to floor to use regular jump instead of double jump
+Abilitie
 	Dash
 		Up
 		Down
@@ -167,6 +155,8 @@ enemies
 	Charging chuck
 
 Blocks to add
+	boost pads
+		increased speed and no stopping for duration
 	mario odyssey fling things (forks, traffice cones)
 		can use grapple on it
 	Sheepo blocks
