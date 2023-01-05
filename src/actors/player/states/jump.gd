@@ -1,5 +1,6 @@
 extends PlayerInfo
 
+#todo: add edge push
 #TODO: bring in proper stats and functions
 
 func enter() -> void:
@@ -15,6 +16,7 @@ func exit() -> void:
 
 
 func physics(delta) -> void:
+	air_velocity_logic(moveSpeed, accelerationAir, frictionAir) #TODO neutral movement
 	gravity_logic(gravityJump, delta)
 	player.set_up_direction(-player.transform.y)
 	player.velocity = player.velocity.rotated(player.rotation)
@@ -33,7 +35,7 @@ func sound(delta: float) -> void:
 func handle_input(event: InputEvent) -> int:
 	if Input.is_action_just_released("jump"):
 		#LOOKAT: minjump height?
-		consecutive_jump_cancel()
+		consecutive_jump_cancel() #lookat: maybe change to percent of jump
 		return State.Fall
 
 	return State.Null

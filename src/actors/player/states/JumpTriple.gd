@@ -10,14 +10,18 @@ func enter() -> void:
 	player.timers.coyoteJump.stop()
 	player.timers.consecutiveJump.stop()
 	player.jumpedDouble = false
+	var tween = create_tween()
+	tween.tween_property(player.characterRig,"rotation", -player.facing * 2 * PI, 0.5)
 
 
 func exit() -> void:
 	player.sounds.jump.pitch_scale = 1
+	player.characterRig.rotation = 0 * PI
 
 
 func physics(delta) -> void:
 	gravity_logic(gravityJump, delta)
+	air_velocity_logic(moveSpeed, accelerationAir, frictionAir) #TODO neutral movement
 	player.set_up_direction(-player.transform.y)
 	player.velocity = player.velocity.rotated(player.rotation)
 	player.move_and_slide()

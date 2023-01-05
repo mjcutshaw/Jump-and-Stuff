@@ -20,6 +20,7 @@ func exit() -> void:
 
 func physics(delta) -> void:
 	gravity_logic(gravityJump, delta)
+	air_velocity_logic(moveSpeed, accelerationAir, frictionAir) #TODO neutral movement
 	player.set_up_direction(-player.transform.y)
 	player.velocity = player.velocity.rotated(player.rotation)
 	player.move_and_slide()

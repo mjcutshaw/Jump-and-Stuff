@@ -13,6 +13,8 @@ var gravityFall: float
 
 var accelerationGround: float
 var frictionGround: float
+var accelerationAir: float = .5 * Util.tileSize
+var frictionAir: float = .7 * Util.tileSize
 
 func _ready() -> void:
 	update_stats()
@@ -35,18 +37,48 @@ func update_stats() -> void:
 	#FIXME: called for every state
 
 
-func gravity_logic(amount, delta) -> void:
+func gravity_logic(amount: float, delta) -> void:
 	player.velocity.y += amount * delta
 
 
-func apply_acceleration(amount) -> void:
+func apply_acceleration(amount: float) -> void:
 	#FIXME: need to multiply times delta/ (1/FRAMERATE)
 	#TODO: variable target speed
 	player.velocity.x = move_toward(abs(player.velocity.x), moveSpeed, amount) * player.moveStrength.x
 
-func apply_friction(amount) -> void:
+
+func apply_friction(amount: float) -> void:
 	#FIXME: need to multiply times delta/ (1/FRAMERATE)
 	player.velocity.x = move_toward(player.velocity.x, 0, amount)
+
+
+func momentum_logic(speed: float, useMoveDirection: bool) -> void:
+	#TODO: need to get accel and deccel, lerp function
+	if useMoveDirection:
+		player.velocity.x = player.moveDirection.x * max(abs(speed), abs(player.velocity.x))
+	if !useMoveDirection:
+		if player.velocity.x == 0:
+			player.velocity.x = player.velocity.x
+		else:
+			player.velocity.x =  max(abs(speed), abs(player.velocity.x)) * player.facing
+
+
+func air_velocity_logic(speed: float, acceleration: float, friction: float) -> void:
+	var airTurn: bool
+	if player.velocity.x != 0  and player.moveDirection.x != 0 and (sign(player.velocity.x) != player.moveDirection.x):
+		airTurn = true
+	#FIXME: air turn should stop other direction and timer till move other way
+	if airTurn:
+		player.velocity.x = move_toward(player.velocity.x, speed * player.moveDirection.x, acceleration) 
+	elif !airTurn:
+		if player.moveDirection.x != 0 and abs(player.velocity.x) < speed:
+			apply_acceleration(acceleration)
+		elif player.moveDirection.x == 0:
+			apply_friction(friction)
+		elif abs(player.velocity.x) >= speed:
+			#TODO: look at not needing moveDirection
+			momentum_logic(speed, true)
+
 
 func speed_bend(forwardLean: bool = true, topSpeed = moveSpeed, leanAmount: float = 0.1) -> void:
 	if forwardLean:
@@ -54,7 +86,6 @@ func speed_bend(forwardLean: bool = true, topSpeed = moveSpeed, leanAmount: floa
 	if !forwardLean:
 		player.characterRig.skew = remap(-player.velocity.x, 0, topSpeed, 0.0, leanAmount)
 
-#TODO: squash and strech, landing squish
 
 func squash_and_stretch(delta):
 #	#TODO: not squishing the on the x
@@ -65,13 +96,16 @@ func squash_and_stretch(delta):
 	player.characterRig.scale.x = lerp(player.characterRig.scale.x, 1.0, 1.0 - pow(0.01, delta))
 	player.characterRig.scale.y = lerp(player.characterRig.scale.y, 1.0, 1.0 - pow(0.01, delta))
 
+
 func consecutive_jump_logic() -> int:
+	#TODO: velocity needs to be greater than zero to increase
 	if player.jumped:
 		return State.JumpDouble
 	elif player.jumpedDouble:
 		return State.JumpTriple
 	else:
 		return State.Jump
+
 
 func consecutive_jump_cancel() -> void:
 	#LOOKAT: only canceled from falls and canceled jumps. watch other states for extra jumps

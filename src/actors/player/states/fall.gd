@@ -19,8 +19,7 @@ func exit() -> void:
 
 func physics(delta) -> void:
 	gravity_logic(gravityFall, delta)
-#	player.set_up_direction(-player.global_transform.y)
-#	player.velocity = player.velocity.rotated(0)
+	air_velocity_logic(moveSpeed, accelerationAir, frictionAir) #TODO neutral movement
 	player.move_and_slide()
 
 
@@ -37,7 +36,8 @@ func handle_input(event: InputEvent) -> int:
 		if !player.timers.coyoteJump.is_stopped(): #leave ground, but stil can jump
 			player.timers.coyoteJump.stop()
 			EventBus.emit_signal("helperUsed", Util.helper.coyoteJump)
-			return State.Jump
+			return consecutive_jump_logic()
+		#TODO: buffer jump
 
 	return State.Null
 
