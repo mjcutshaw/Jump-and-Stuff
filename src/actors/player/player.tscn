@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://b1oey5f82x36e"]
+[gd_scene load_steps=43 format=3 uid="uid://gtgswep0g2kb"]
 
 [ext_resource type="Script" path="res://src/actors/player/player.gd" id="1_a3yhc"]
 [ext_resource type="Script" path="res://src/actors/player/scripts/CharacterRig.gd" id="2_i63he"]
@@ -12,9 +12,9 @@
 [ext_resource type="Script" path="res://src/actors/player/states/fall.gd" id="9_hid0t"]
 [ext_resource type="Script" path="res://src/actors/player/states/crouch.gd" id="10_tmkpe"]
 [ext_resource type="Script" path="res://src/actors/player/states/turbo.gd" id="11_ftfyh"]
-[ext_resource type="Script" path="res://src/actors/player/states/JumpDouble.gd" id="12_0q2in"]
+[ext_resource type="Script" path="res://src/actors/player/states/jumpDouble.gd" id="12_3ob7e"]
 [ext_resource type="Script" path="res://src/actors/player/states/wallslide.gd" id="12_x0xop"]
-[ext_resource type="Script" path="res://src/actors/player/states/JumpTriple.gd" id="13_gdmbn"]
+[ext_resource type="Script" path="res://src/actors/player/states/jumpTriple.gd" id="13_6hfo3"]
 [ext_resource type="Script" path="res://src/actors/player/scripts/Timers.gd" id="14_gr7r5"]
 [ext_resource type="AudioStream" uid="uid://c655mcgbweid5" path="res://asset/sounds/player/footstep.wav" id="14_jye2v"]
 [ext_resource type="AudioStream" uid="uid://bnbv8tr478gqg" path="res://asset/sounds/player/land.wav" id="15_7oeww"]
@@ -66,8 +66,7 @@ orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
 scale_max = 10.0
 scale_curve = SubResource("CurveTexture_vjq7j")
-color = Color(0, 0, 0, 1)
-hue_variation_min = -0.12
+color = Color(0.270588, 0.270588, 0.270588, 1)
 hue_variation_max = 0.19
 
 [sub_resource type="Curve" id="Curve_pgpbg"]
@@ -79,12 +78,12 @@ curve = SubResource("Curve_pgpbg")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_k440f"]
 emission_shape = 3
-emission_box_extents = Vector3(20, 1, 1)
+emission_box_extents = Vector3(50, 1, 1)
 particle_flag_disable_z = true
 direction = Vector3(0, -1, 0)
-spread = 92.16
+spread = 108.04
 gravity = Vector3(0, 10, 0)
-initial_velocity_max = 153.44
+initial_velocity_max = 50.0
 angular_velocity_min = -80.0
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
@@ -93,9 +92,7 @@ damping_max = 14.16
 scale_min = 0.0
 scale_max = 15.0
 scale_curve = SubResource("CurveTexture_cr2jt")
-color = Color(0, 0, 0, 1)
-hue_variation_min = -0.12
-hue_variation_max = 0.19
+color = Color(0.462745, 0.447059, 0.454902, 1)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_w0buo"]
 lifetime_randomness = 1.0
@@ -292,7 +289,6 @@ _data = {
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 64
 collision_mask = 2
-floor_block_on_wall = false
 floor_max_angle = 0.767945
 floor_snap_length = 7.3
 script = ExtResource("1_a3yhc")
@@ -353,7 +349,7 @@ script = ExtResource("3_0fvjs")
 [node name="ParticlesWalking" type="GPUParticles2D" parent="CharacterRig/Particles"]
 position = Vector2(-16, 0)
 emitting = false
-amount = 80
+amount = 30
 process_material = SubResource("ParticleProcessMaterial_salwb")
 speed_scale = 2.0
 explosiveness = 0.17
@@ -361,7 +357,7 @@ explosiveness = 0.17
 [node name="ParticlesSkid" type="GPUParticles2D" parent="CharacterRig/Particles"]
 position = Vector2(-16, 0)
 emitting = false
-amount = 80
+amount = 15
 process_material = SubResource("ParticleProcessMaterial_n1xfx")
 lifetime = 2.0
 one_shot = true
@@ -370,7 +366,7 @@ explosiveness = 0.7
 
 [node name="ParticlesLand" type="GPUParticles2D" parent="CharacterRig/Particles"]
 emitting = false
-amount = 200
+amount = 20
 process_material = SubResource("ParticleProcessMaterial_k440f")
 lifetime = 0.7
 one_shot = true
@@ -379,7 +375,7 @@ explosiveness = 1.0
 
 [node name="ParticlesJump" type="GPUParticles2D" parent="CharacterRig/Particles"]
 emitting = false
-amount = 100
+amount = 10
 process_material = SubResource("ParticleProcessMaterial_w0buo")
 lifetime = 0.7
 one_shot = true
@@ -388,7 +384,7 @@ explosiveness = 1.0
 
 [node name="ParticlesJumpDouble" type="GPUParticles2D" parent="CharacterRig/Particles"]
 emitting = false
-amount = 150
+amount = 20
 process_material = SubResource("ParticleProcessMaterial_3sxjf")
 lifetime = 0.9
 one_shot = true
@@ -397,7 +393,7 @@ explosiveness = 0.9
 
 [node name="ParticlesJumpTriple" type="GPUParticles2D" parent="CharacterRig/Particles"]
 emitting = false
-amount = 200
+amount = 30
 process_material = SubResource("ParticleProcessMaterial_j1mxi")
 one_shot = true
 speed_scale = 2.0
@@ -460,7 +456,6 @@ script = ExtResource("5_86xj5")
 
 [node name="Walk" type="Node" parent="StateMachine"]
 script = ExtResource("6_w0a7b")
-skidPercent = null
 
 [node name="Turbo" type="Node" parent="StateMachine"]
 script = ExtResource("11_ftfyh")
@@ -478,10 +473,10 @@ script = ExtResource("7_rx8in")
 script = ExtResource("8_8a3ob")
 
 [node name="JumpDouble" type="Node" parent="StateMachine"]
-script = ExtResource("12_0q2in")
+script = ExtResource("12_3ob7e")
 
 [node name="JumpTriple" type="Node" parent="StateMachine"]
-script = ExtResource("13_gdmbn")
+script = ExtResource("13_6hfo3")
 
 [node name="Fall" type="Node" parent="StateMachine"]
 script = ExtResource("9_hid0t")

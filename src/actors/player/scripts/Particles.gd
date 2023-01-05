@@ -1,5 +1,6 @@
 extends Node2D
 #TODO: get ground color for particles
+#TODO: landed particles need to be based on velocity
 
 @onready var walk: GPUParticles2D = $ParticlesWalking
 @onready var skid: GPUParticles2D = $ParticlesSkid

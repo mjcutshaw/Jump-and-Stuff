@@ -1,6 +1,7 @@
 extends Actor
 class_name  Player
 #FIXME: can use capsule on test project and not this one
+#TODO: joystick vs dpad/keyboard input
 var stats: Resource = preload("res://src/actors/player/resources/playerStats.tres")
 @onready var animPlayer: AnimationPlayer = $AnimationPlayer
 @onready var sm: Node = $StateMachine
