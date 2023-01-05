@@ -11,7 +11,7 @@ func enter() -> void:
 	player.timers.consecutiveJump.stop()
 	player.jumpedDouble = false
 	var tween = create_tween()
-	tween.tween_property(player.characterRig,"rotation", -player.facing * 2 * PI, 0.5)
+	tween.tween_property(player.characterRig,"rotation", -player.facing * 2 * PI, 0.5) ## flip, find way to rotate around center
 
 
 func exit() -> void:
@@ -46,7 +46,7 @@ func handle_input(event: InputEvent) -> int:
 
 
 func state_check(delta: float) -> int:
-	if player.velocity.y >= 0:
-		return State.Fall
+	if player.velocity.y > -jumpApexHeight:
+		return State.JumpApex
 
 	return State.Null

@@ -19,7 +19,7 @@ enum State {
 	JumpAir,
 	JumpWall,
 	JumpReverse,
-	Apex,
+	JumpApex,
 	Fall,
 	DashSide,
 	DashUp,

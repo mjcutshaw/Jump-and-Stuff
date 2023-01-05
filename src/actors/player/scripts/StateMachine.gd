@@ -15,7 +15,7 @@ extends Node
 #	PlayerState.State.JumpAir: $JumpAir,
 #	PlayerState.State.JumpWall: $JumpWall,
 #	PlayerState.State.JumpReverse: $JumpReverse,
-#	PlayerState.State.Apex: $Apex,
+	PlayerState.State.JumpApex: $JumpApex,
 	PlayerState.State.Fall: $Fall,
 #	PlayerState.State.DashGround: $DashGround,
 #	PlayerState.State.DashAir: $DashAir,
@@ -91,14 +91,3 @@ func visual(delta) -> void:
 
 func sound(delta) -> void:
 	currentState.sound(delta)
-
-func player_teleported() -> void:
-	change_state(PlayerState.State.Teleport)
-
-func player_died() -> void:
-	change_state(PlayerState.State.Die)
-
-func bounce(amount) -> void:
-	change_state(PlayerState.State.Fall)
-	player.velocityPlayer = amount
-	#TODO: lower amount if jump is no pressed

@@ -10,11 +10,14 @@ var moveSpeed: int
 var jumpVelocity: float
 var gravityJump: float
 var gravityFall: float
+var gravityApex: float
 
 var accelerationGround: float
 var frictionGround: float
 var accelerationAir: float = .5 * Util.tileSize
 var frictionAir: float = .7 * Util.tileSize
+
+var jumpApexHeight: float = 40
 
 func _ready() -> void:
 	update_stats()
@@ -32,6 +35,7 @@ func update_stats() -> void:
 	jumpHeight = stats.baseJumpHeight * Util.tileSize
 	gravityJump = 2 * jumpHeight / pow(stats.jumpTimeToPeak, 2)
 	gravityFall = 2 * jumpHeight / pow(stats.jumpTimeToDescent, 2)
+	gravityApex = 2 * jumpHeight / pow(stats.jumpTimeAtApex, 2)
 	jumpVelocity = -sqrt(2 * gravityJump * jumpHeight)
 
 	#FIXME: called for every state

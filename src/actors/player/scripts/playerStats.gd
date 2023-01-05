@@ -12,4 +12,5 @@ var turboSpeed #min speed for wall run  #TODO: make based off base speed
 @export var baseJumpHeight: float = 4.5
 @export var jumpTimeToPeak: float = 0.5
 @export var jumpTimeToDescent: float = 0.25
+@export var jumpTimeAtApex: float = 0.8
 
