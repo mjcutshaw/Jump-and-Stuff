@@ -1,11 +1,8 @@
 extends PlayerInfo
 
-#TODO: hold down to pass through semisolids
-
 #FIXME: breaks going from walk to fall
 
 func enter() -> void:
-	player.neutral_move_direction_logic()
 	player.set_up_direction(Vector2.UP)
 	if player.rotation != 0:
 		var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
@@ -37,7 +34,8 @@ func handle_input(event: InputEvent) -> int:
 			player.timers.coyoteJump.stop()
 			EventBus.emit_signal("helperUsed", Util.helper.coyoteJump)
 			return consecutive_jump_logic()
-		#TODO: buffer jump
+		else:
+			player.timers.bufferJump.start()
 
 	return State.Null
 

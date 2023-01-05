@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://gtgswep0g2kb"]
+[gd_scene load_steps=43 format=3 uid="uid://dcnsbuom51e0n"]
 
 [ext_resource type="Script" path="res://src/actors/player/player.gd" id="1_a3yhc"]
 [ext_resource type="Script" path="res://src/actors/player/scripts/CharacterRig.gd" id="2_i63he"]
@@ -13,10 +13,10 @@
 [ext_resource type="Script" path="res://src/actors/player/states/crouch.gd" id="10_tmkpe"]
 [ext_resource type="Script" path="res://src/actors/player/states/turbo.gd" id="11_ftfyh"]
 [ext_resource type="Script" path="res://src/actors/player/states/jumpDouble.gd" id="12_3ob7e"]
-[ext_resource type="Script" path="res://src/actors/player/states/wallslide.gd" id="12_x0xop"]
 [ext_resource type="Script" path="res://src/actors/player/states/jumpTriple.gd" id="13_6hfo3"]
 [ext_resource type="Script" path="res://src/actors/player/scripts/Timers.gd" id="14_gr7r5"]
 [ext_resource type="AudioStream" uid="uid://c655mcgbweid5" path="res://asset/sounds/player/footstep.wav" id="14_jye2v"]
+[ext_resource type="Script" path="res://src/actors/player/states/wallSlide.gd" id="15_4ibps"]
 [ext_resource type="AudioStream" uid="uid://bnbv8tr478gqg" path="res://asset/sounds/player/land.wav" id="15_7oeww"]
 [ext_resource type="Script" path="res://src/actors/player/scripts/sounds.gd" id="15_dp65x"]
 [ext_resource type="AudioStream" uid="uid://btfvrwbgkgyal" path="res://asset/sounds/player/jump.wav" id="16_51c2n"]
@@ -482,7 +482,7 @@ script = ExtResource("13_6hfo3")
 script = ExtResource("9_hid0t")
 
 [node name="WallSlide" type="Node" parent="StateMachine"]
-script = ExtResource("12_x0xop")
+script = ExtResource("15_4ibps")
 
 [node name="Raycasts" type="Node2D" parent="."]
 visible = false
@@ -513,6 +513,10 @@ one_shot = true
 
 [node name="ConsecutiveJump" type="Timer" parent="Timers"]
 wait_time = 0.5
+one_shot = true
+
+[node name="BufferJump" type="Timer" parent="Timers"]
+wait_time = 0.1
 one_shot = true
 
 [node name="Sounds" type="Node" parent="."]

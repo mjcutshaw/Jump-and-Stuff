@@ -42,5 +42,9 @@ func state_check(delta: float) -> int:
 	if !player.is_on_floor():
 		player.timers.coyoteJump.start()
 		return State.Fall
+	if !player.timers.bufferJump.is_stopped():
+		player.timers.bufferJump.stop()
+		EventBus.emit_signal("helperUsed", Util.helper.bufferJump)
+		return State.Jump
 
 	return State.Null
