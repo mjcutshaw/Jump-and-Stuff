@@ -13,13 +13,14 @@ func enter() -> void:
 	player.particles.skid.restart()
 	skidTime = skidDuration
 	var tween = create_tween() #TODO: make based on speed as well
-	tween.tween_property(player.characterRig, "skew", 0.3, transformTime).from_current()
+	tween.tween_property(player.characterRig, "skew", player.facing * 0.3, transformTime).from_current()
 
 
 func exit() -> void:
 	player.sounds.skid.stop()
 	var tween = create_tween()
 	tween.tween_property(player.characterRig, "skew", 0, transformTime).from_current()
+	player.velocity.x = 0
 
 
 func physics(delta) -> void:
@@ -30,7 +31,7 @@ func physics(delta) -> void:
 
 func visual(delta) -> void:
 	squash_and_stretch(delta)
-	speed_bend(false, moveSpeed, 0.3)
+	speed_bend(true, moveSpeed, 0.3)
 
 
 func sound(delta: float) -> void:
