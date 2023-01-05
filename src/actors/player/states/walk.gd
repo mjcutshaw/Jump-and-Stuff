@@ -21,11 +21,18 @@ func physics(delta) -> void:
 	player.move_and_slide()
 	if abs(player.velocity.x) > moveSpeed * skidPercent  and player.moveDirection.x != 0 and (sign(player.velocity.x) != player.moveDirection.x):
 		skidding = true
-	if player.moveDirection.x != 0:
-		if abs(player.velocity.x) < moveSpeed:
-			apply_acceleration(accelerationGround)
-	else:
+#	if player.moveDirection.x != 0:
+#		if abs(player.velocity.x) < moveSpeed:
+#			apply_acceleration(accelerationGround)
+#	else:
+#		apply_friction(frictionGround)
+	elif player.moveDirection.x != 0 and player.velocity.x < moveSpeed:
+		apply_acceleration(accelerationGround)
+	elif player.moveDirection.x == 0:
 		apply_friction(frictionGround)
+	elif player.velocity.x >= moveSpeed:
+		#TODO: look at not needing moveDirection
+		momentum_logic(moveSpeed, true)
 
 	player.rotation = player.get_floor_normal().angle() + PI/2 #FIXME: turn off if on ledge, need to use raycast to check ground
 
