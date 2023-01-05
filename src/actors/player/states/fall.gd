@@ -15,6 +15,9 @@ func exit() -> void:
 
 
 func physics(delta) -> void:
+	if player.test_move(player.global_transform, Vector2(player.velocity.x * delta, 0)):
+		player.attempt_vertical_corner_correction(jumpCornerCorrectionVertical, delta)
+	
 	gravity_logic(gravityFall, delta)
 	air_velocity_logic(moveSpeed, accelerationAir, frictionAir) #TODO neutral movement
 	player.move_and_slide()

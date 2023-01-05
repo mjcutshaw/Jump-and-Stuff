@@ -11,7 +11,7 @@ func enter() -> void:
 	player.timers.consecutiveJump.stop()
 	player.jumpedDouble = false
 	var tween = create_tween()
-	tween.tween_property(player.characterRig,"rotation", -player.facing * 2 * PI, 0.5) ## flip, find way to rotate around center
+	tween.tween_property(player.characterRig,"rotation", -player.facing * 2 * PI, 0.5) ## flip, #TODO: find way to rotate around center
 
 
 func exit() -> void:
@@ -20,6 +20,12 @@ func exit() -> void:
 
 
 func physics(delta) -> void:
+	if player.test_move(player.global_transform, Vector2(0, player.velocity.y * delta)):
+		player.attempt_horizontal_corner_correction(jumpCornerCorrectionHorizontal, delta)
+	
+	if player.test_move(player.global_transform, Vector2(player.velocity.x * delta, 0)):
+		player.attempt_vertical_corner_correction(jumpCornerCorrectionVertical, delta)
+	
 	gravity_logic(gravityJump, delta)
 	air_velocity_logic(moveSpeed, accelerationAir, frictionAir) #TODO neutral movement
 	player.set_up_direction(-player.transform.y)

@@ -18,6 +18,8 @@ var accelerationAir: float = .5 * Util.tileSize
 var frictionAir: float = .7 * Util.tileSize
 
 var jumpApexHeight: float = 40
+var jumpCornerCorrectionVertical: int = 10
+var jumpCornerCorrectionHorizontal: int = 15
 
 func _ready() -> void:
 	update_stats()
