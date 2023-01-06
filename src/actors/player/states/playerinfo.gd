@@ -22,7 +22,6 @@ var jumpCornerCorrectionVertical: int = 10
 var jumpCornerCorrectionHorizontal: int = 15
 
 func _ready() -> void:
-	update_stats()
 	EventBus.connect("playerStatsUpdate", update_stats)
 	EventBus.connect("playerConsecutiveJump", consecutive_jump_cancel)
 
