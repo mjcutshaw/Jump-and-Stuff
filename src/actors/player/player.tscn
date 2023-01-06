@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://dcnsbuom51e0n"]
+[gd_scene load_steps=44 format=3 uid="uid://dcnsbuom51e0n"]
 
 [ext_resource type="Script" path="res://src/actors/player/player.gd" id="1_a3yhc"]
 [ext_resource type="Script" path="res://src/actors/player/scripts/CharacterRig.gd" id="2_i63he"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://src/actors/player/states/jumpApex.gd" id="14_gdhgo"]
 [ext_resource type="Script" path="res://src/actors/player/scripts/Timers.gd" id="14_gr7r5"]
 [ext_resource type="AudioStream" uid="uid://c655mcgbweid5" path="res://asset/sounds/player/footstep.wav" id="14_jye2v"]
+[ext_resource type="Script" path="res://src/actors/player/JumpFlip.gd" id="14_w60ku"]
 [ext_resource type="AudioStream" uid="uid://bnbv8tr478gqg" path="res://asset/sounds/player/land.wav" id="15_7oeww"]
 [ext_resource type="Script" path="res://src/actors/player/scripts/sounds.gd" id="15_dp65x"]
 [ext_resource type="AudioStream" uid="uid://btfvrwbgkgyal" path="res://asset/sounds/player/jump.wav" id="16_51c2n"]
@@ -477,6 +478,9 @@ script = ExtResource("12_3ob7e")
 
 [node name="JumpTriple" type="Node" parent="StateMachine"]
 script = ExtResource("13_6hfo3")
+
+[node name="JumpFlip" type="Node" parent="StateMachine"]
+script = ExtResource("14_w60ku")
 
 [node name="JumpApex" type="Node" parent="StateMachine"]
 script = ExtResource("14_gdhgo")

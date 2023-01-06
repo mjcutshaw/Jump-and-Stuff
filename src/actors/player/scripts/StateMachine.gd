@@ -14,7 +14,7 @@ extends Node
 	PlayerState.State.JumpTriple: $JumpTriple,
 #	PlayerState.State.JumpAir: $JumpAir,
 #	PlayerState.State.JumpWall: $JumpWall,
-#	PlayerState.State.JumpReverse: $JumpReverse,
+	PlayerState.State.JumpFlip: $JumpFlip,
 	PlayerState.State.JumpApex: $JumpApex,
 	PlayerState.State.Fall: $Fall,
 #	PlayerState.State.DashGround: $DashGround,
