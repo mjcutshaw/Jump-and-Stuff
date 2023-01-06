@@ -1,6 +1,8 @@
 extends PlayerInfo
-#TODO: make player flip
+
+
 @export var jumpModifier: float = 1.5
+
 
 func enter() -> void:
 	player.sounds.jump.pitch_scale = jumpModifier

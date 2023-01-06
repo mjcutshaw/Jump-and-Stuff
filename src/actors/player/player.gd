@@ -124,7 +124,6 @@ func attempt_horizontal_corner_correction(amount: int, delta) -> void:
 
 
 func consecutive_jump_cancel() -> void: 
-	#TODO: make landed function to call
 	jumped = false
 	jumpedDouble = false
 	timers.consecutiveJump.stop()

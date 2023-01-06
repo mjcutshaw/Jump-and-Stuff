@@ -112,7 +112,6 @@ func consecutive_jump_logic() -> int:
 
 
 func consecutive_jump_cancel() -> void: 
-	#TODO: make landed function to call
 	player.jumped = false
 	player.jumpedDouble = false
 	player.timers.consecutiveJump.stop()
