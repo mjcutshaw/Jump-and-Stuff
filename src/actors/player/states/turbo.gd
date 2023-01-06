@@ -44,7 +44,7 @@ func handle_input(event: InputEvent) -> int:
 	if Input.is_action_pressed("crouch"): 
 		return State.Crouch
 	if Input.is_action_just_pressed("jump"):
-		return State.Jump
+		return consecutive_jump_logic()
 
 	return State.Null
 
@@ -57,6 +57,10 @@ func state_check(delta: float) -> int:
 		return State.Walk
 	if player.velocity.x == 0:
 		return State.Idle
+	if !player.timers.bufferJump.is_stopped():
+		player.timers.bufferJump.stop()
+		EventBus.emit_signal("helperUsed", Util.helper.bufferJump)
+		return consecutive_jump_logic()
 
 	return State.Null
 
