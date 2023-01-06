@@ -2,8 +2,8 @@ extends PlayerInfo
 
 #TODO: jump flip state
 
-@export var skidDuration: float = 0.5 #TODO: make speed relavent to skid
-@export var frictionSkid: float = 1.0
+@export var skidDuration: float = 1 #TODO: make speed relavent to skid
+var frictionSkid: float = 1.0 * Util.tileSize
 @export var transformTime: float = 0.2
 var skidTime: float
 
@@ -21,7 +21,6 @@ func exit() -> void:
 	player.sounds.skid.stop()
 	var tween = create_tween()
 	tween.tween_property(player.characterRig, "skew", 0, transformTime).from_current()
-	player.velocity.x = 0
 
 
 func physics(delta) -> void:
@@ -47,10 +46,12 @@ func handle_input(event: InputEvent) -> int:
 
 func state_check(delta: float) -> int:
 	if skidTime < 0:
-		if player.velocity.x == 0 or player.moveDirection.x == 0:
+		if player.velocity.x == 0:
 			return State.Idle
 		else:
-			player.velocity.x == 0 #FIXME: getting stuck in skid loop sometimes
+			player.velocity.x = 0
+			return State.Walk
+	if player.moveDirection.x == 0:
 			return State.Walk
 	
 
