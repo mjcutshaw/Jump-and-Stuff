@@ -57,6 +57,7 @@ func change_state(newState: int) -> void:
 	currentState = states[newState]
 	currentState.enter()
 	currentStateName = currentState.name
+	player.currentStateName = currentState.name
 
 	EventBus.emit_signal("debugState", currentStateName + " from " + previousStateName)
 #	EventBus.emit_signal("error", currentStateName)

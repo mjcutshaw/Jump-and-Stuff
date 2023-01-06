@@ -34,8 +34,11 @@ var jumpedDouble: bool
 var ledgeLeft: bool
 var ledgeRight: bool
 
+var currentStateName
+
 func _ready() -> void:
 	sm.init()
+	EventBus.connect("playerConsecutiveJump", consecutive_jump_cancel)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -106,7 +109,6 @@ func attempt_vertical_corner_correction(amount: int, delta) -> void:
 			if !test_move(global_transform.translated(Vector2(0, i * j / 2)), Vector2(velocity.x * delta, 0)):
 				translate(Vector2(0, i * j / 2))
 				if velocity.y * j < 0: velocity.y = 0
-				print("pushed up")
 				EventBus.emit_signal("helperUsed", Util.helper.cornerCorrectionVertical)
 				return
 
@@ -117,6 +119,12 @@ func attempt_horizontal_corner_correction(amount: int, delta) -> void:
 			if !test_move(global_transform.translated(Vector2(i * j / 2, 0)), Vector2(0, velocity.y * delta)):
 				translate(Vector2(i * j / 2, 0))
 				if velocity.x * j < 0: velocity.x = 0
-				print("pushed side")
 				EventBus.emit_signal("helperUsed", Util.helper.cornerCorrectionHorizontal)
 				return
+
+
+func consecutive_jump_cancel() -> void: 
+	#TODO: make landed function to call
+	jumped = false
+	jumpedDouble = false
+	timers.consecutiveJump.stop()
