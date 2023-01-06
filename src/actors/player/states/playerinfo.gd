@@ -12,33 +12,33 @@ var gravityJump: float
 var gravityFall: float
 var gravityApex: float
 
-var accelerationGround: float
-var frictionGround: float
-var accelerationAir: float = .5 * Util.tileSize
-var frictionAir: float = .7 * Util.tileSize
+var accelerationGround: float = 0.25 * Util.tileSize
+var frictionGround: float = 0.4 * Util.tileSize
+var accelerationAir: float = 0.5 * Util.tileSize
+var frictionAir: float = 0.7 * Util.tileSize
 
 var jumpApexHeight: float = 40
 var jumpCornerCorrectionVertical: int = 10
 var jumpCornerCorrectionHorizontal: int = 15
+var percentMinJumpVelocity: float = 0.8
+var percentKeepJumpConsecutive: float = 0.9
 
 func _ready() -> void:
 	EventBus.connect("playerStatsUpdate", update_stats)
-	EventBus.connect("playerConsecutiveJump", consecutive_jump_cancel)
 
 func update_stats() -> void:
 	var jumpHeight: float
+	var jumpTimeToPeak: float = 0.5
+	var jumpTimeToDescent: float = 0.25
+	var jumpTimeAtApex: float = 0.8
 	
 	moveSpeed = stats.baseSpeed * Util.tileSize
 	
-	accelerationGround = stats.accelerationGround * Util.tileSize
-	frictionGround = stats.frictionGround * Util.tileSize
-	
 	jumpHeight = stats.baseJumpHeight * Util.tileSize
-	gravityJump = 2 * jumpHeight / pow(stats.jumpTimeToPeak, 2)
-	gravityFall = 2 * jumpHeight / pow(stats.jumpTimeToDescent, 2)
-	gravityApex = 2 * jumpHeight / pow(stats.jumpTimeAtApex, 2)
+	gravityJump = 2 * jumpHeight / pow(jumpTimeToPeak, 2)
+	gravityFall = 2 * jumpHeight / pow(jumpTimeToDescent, 2)
+	gravityApex = 2 * jumpHeight / pow(jumpTimeAtApex, 2)
 	jumpVelocity = -sqrt(2 * gravityJump * jumpHeight)
-
 	#FIXME: called for every state
 
 
@@ -48,7 +48,6 @@ func gravity_logic(amount: float, delta) -> void:
 
 func apply_acceleration(amount: float) -> void:
 	#FIXME: need to multiply times delta/ (1/FRAMERATE)
-	#TODO: variable target speed
 	player.velocity.x = move_toward(abs(player.velocity.x), moveSpeed, amount) * player.moveStrength.x
 
 
@@ -93,7 +92,7 @@ func speed_bend(forwardLean: bool = true, topSpeed = moveSpeed, leanAmount: floa
 
 
 func squash_and_stretch(delta):
-	#FIXME: infinite scaling
+	#FIXME: infinite scaling when falling
 #	#TODO: not squishing the on the x
 	if !player.is_on_floor():
 		player.characterRig.scale.y = remap(abs(player.velocity.y), 0, abs(jumpVelocity), 0.75, 1.25)
@@ -104,7 +103,6 @@ func squash_and_stretch(delta):
 
 
 func consecutive_jump_logic() -> int:
-	#TODO: velocity needs to be greater than zero to increase
 	if player.jumped:
 		return State.JumpDouble
 	elif player.jumpedDouble:
@@ -113,8 +111,8 @@ func consecutive_jump_logic() -> int:
 		return State.Jump
 
 
-func consecutive_jump_cancel() -> void:
-	#LOOKAT: only canceled from falls and canceled jumps. watch other states for extra jumps
+func consecutive_jump_cancel() -> void: 
 	#TODO: make landed function to call
 	player.jumped = false
 	player.jumpedDouble = false
+	player.timers.consecutiveJump.stop()
