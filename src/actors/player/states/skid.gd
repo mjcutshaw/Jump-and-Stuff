@@ -14,6 +14,7 @@ func enter() -> void:
 	skidTime = skidDuration
 	var tween = create_tween() #TODO: make based on speed as well
 	tween.tween_property(player.characterRig, "skew", player.facing * 0.3, transformTime).from_current()
+	#TODO: look at speed bend to make dynamic
 
 
 func exit() -> void:
