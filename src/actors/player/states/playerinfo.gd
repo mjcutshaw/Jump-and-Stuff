@@ -93,6 +93,7 @@ func speed_bend(forwardLean: bool = true, topSpeed = moveSpeed, leanAmount: floa
 
 
 func squash_and_stretch(delta):
+	#FIXME: infinite scaling
 #	#TODO: not squishing the on the x
 	if !player.is_on_floor():
 		player.characterRig.scale.y = remap(abs(player.velocity.y), 0, abs(jumpVelocity), 0.75, 1.25)

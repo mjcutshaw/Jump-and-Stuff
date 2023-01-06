@@ -1,14 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://f53exxejh5co"]
+[gd_scene load_steps=12 format=3 uid="uid://f53exxejh5co"]
 
 [ext_resource type="Script" path="res://src/levels/playground.gd" id="1_fgo7i"]
 [ext_resource type="Script" path="res://src/object/prefab/scripts/DrawCollisionShape2D.gd" id="1_isl6d"]
 [ext_resource type="Script" path="res://src/debug/Info.gd" id="2_slpti"]
-[ext_resource type="PackedScene" uid="uid://gtgswep0g2kb" path="res://src/actors/player/player.tscn" id="3_m0pk1"]
+[ext_resource type="PackedScene" uid="uid://dcnsbuom51e0n" path="res://src/actors/player/player.tscn" id="3_m0pk1"]
 [ext_resource type="PackedScene" uid="uid://bhto12bvuu2p" path="res://src/object/prefab/drawableTerrain.tscn" id="4_ypsbw"]
 [ext_resource type="Script" path="res://src/levels/POLY.gd" id="5_e68rw"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_5sb2n"]
-radius = 204.43
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l1c3o"]
 size = Vector2(6160, 64)
@@ -85,17 +82,6 @@ offset_top = 54.0
 offset_right = 10.0
 offset_bottom = 77.0
 
-[node name="Area2D" type="Area2D" parent="."]
-visible = false
-position = Vector2(-1673, 177)
-gravity_space_override = 3
-gravity_point = true
-
-[node name="VisibleCollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_5sb2n")
-script = ExtResource("1_isl6d")
-color = Color(0, 0.796078, 0, 1)
-
 [node name="ground" type="Node" parent="."]
 
 [node name="Ground" type="StaticBody2D" parent="ground"]
@@ -114,14 +100,14 @@ shape = SubResource("CircleShape2D_84nwl")
 script = ExtResource("1_isl6d")
 
 [node name="StaticBody2D" parent="ground" instance=ExtResource("4_ypsbw")]
-position = Vector2(-528, 704)
+position = Vector2(-1996, 1404)
 
 [node name="Path2D" parent="ground/StaticBody2D" index="3"]
 position = Vector2(-1032, 1832)
 curve = SubResource("Curve2D_j04xt")
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="ground"]
-position = Vector2(-968, 248)
+position = Vector2(-2436, 948)
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("5_e68rw")
@@ -139,7 +125,7 @@ default_color = Color(0, 0.568627, 0, 1)
 curve = SubResource("Curve2D_1a0bp")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="ground"]
-position = Vector2(376, 1464)
+position = Vector2(-1092, 2164)
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("5_e68rw")
