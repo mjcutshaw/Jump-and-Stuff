@@ -28,8 +28,8 @@ func visual(delta) -> void:
 func handle_input(event: InputEvent) -> int:
 	if Input.is_action_pressed("crouch"): 
 		return State.Crouch
-	if Input.is_action_just_pressed("jump"):
-		return consecutive_jump_logic()
+	if Input.is_action_just_pressed("jump"): #LOOKAT: can consec jump from idle, watch if that causes problems
+		return State.Jump
 
 	return State.Null
 
