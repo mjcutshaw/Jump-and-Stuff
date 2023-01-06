@@ -14,8 +14,8 @@ var gravityApex: float
 
 var accelerationGround: float = 0.25 * Util.tileSize
 var frictionGround: float = 0.4 * Util.tileSize
-var accelerationAir: float = 0.5 * Util.tileSize
-var frictionAir: float = 0.7 * Util.tileSize
+var accelerationAir: float = 0.2 * Util.tileSize
+var frictionAir: float = 0.35 * Util.tileSize
 
 var jumpApexHeight: float = 40
 var jumpCornerCorrectionVertical: int = 10
