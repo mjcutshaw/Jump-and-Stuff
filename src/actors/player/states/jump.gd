@@ -8,6 +8,7 @@ func enter() -> void:
 	player.sounds.jump.play()
 	player.velocity.y = jumpVelocity
 	player.timers.coyoteJump.stop()
+	player.timers.consecutiveJump.stop()
 	player.jumped = true
 
 
@@ -41,8 +42,9 @@ func sound(delta: float) -> void:
 
 func handle_input(event: InputEvent) -> int:
 	if Input.is_action_just_released("jump"):
-		#LOOKAT: minjump height?
-		consecutive_jump_cancel() #lookat: maybe change to percent of jump
+		player.velocity.y = max( player.velocity.y, jumpVelocity * percentMinJumpVelocity)
+		if player.velocity.y > jumpVelocity * percentKeepJumpConsecutive: ## needs to be a percent of full jump to keep it going
+			consecutive_jump_cancel()
 		return State.Fall
 
 	return State.Null

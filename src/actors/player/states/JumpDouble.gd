@@ -43,8 +43,9 @@ func sound(delta: float) -> void:
 
 func handle_input(event: InputEvent) -> int:
 	if Input.is_action_just_released("jump"):
-		#LOOKAT: minjump height?
-		consecutive_jump_cancel()
+		player.velocity.y = max( player.velocity.y, jumpVelocity * percentMinJumpVelocity)
+		if player.velocity.y > (jumpVelocity * jumpModifier) * percentKeepJumpConsecutive: ## needs to be a percent of full jump to keep it going
+			consecutive_jump_cancel()
 		return State.Fall
 
 	return State.Null
