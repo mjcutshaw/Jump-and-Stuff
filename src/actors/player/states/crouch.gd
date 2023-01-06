@@ -1,6 +1,8 @@
-extends PlayerState
+extends PlayerInfo
 
 @export var crouchSpeedMin: int = 20
+@export var frictionCrouch: float = 0.1 * Util.tileSize
+@export var minLongJumpVelocity: int = 30
 @export var transformTime: float = 0.2
 
 #TODO: make anim to move colision shape
@@ -14,7 +16,8 @@ func exit() -> void:
 
 
 func physics(delta) -> void:
-	pass
+	player.move_and_slide()
+	apply_friction(frictionCrouch)
 
 
 func visual(delta) -> void:
@@ -34,6 +37,11 @@ func handle_input(event: InputEvent) -> int:
 			return State.Walk
 		else:
 			return State.Idle
+#	if Input.is_action_just_pressed("jump"): #TODO: more jumps
+#		if abs(player.velocity.x) > minLongJumpVelocity:
+#			return State.JumpLong
+#		else:
+#			return State.JumpCrouch
 
 	return State.Null
 
@@ -46,5 +54,7 @@ func state_check(delta: float) -> int:
 		player.timers.bufferJump.stop()
 		EventBus.emit_signal("helperUsed", Util.helper.bufferJump)
 		return State.Jump
+#	if player.is_on_slope: #TODO: slope detection into slide
+#		return State.Slide
 
 	return State.Null
