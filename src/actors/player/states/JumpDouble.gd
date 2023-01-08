@@ -61,5 +61,8 @@ func state_check(delta: float) -> int:
 			return State.Walk
 		else:
 			return State.Idle
+	if player.is_on_ceiling():
+		consecutive_jump_cancel()
+		return State.Fall
 
 	return State.Null
