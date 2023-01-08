@@ -53,5 +53,10 @@ func handle_input(event: InputEvent) -> int:
 func state_check(delta: float) -> int:
 	if player.velocity.y > -jumpApexHeight:
 		return State.JumpApex
+	if player.is_on_floor():
+		if player.velocity.x != 0:
+			return State.Walk
+		else:
+			return State.Idle
 
 	return State.Null
