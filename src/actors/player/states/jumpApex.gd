@@ -30,7 +30,8 @@ func sound(delta: float) -> void:
 
 
 func handle_input(event: InputEvent) -> int:
-	
+	if Input.is_action_just_pressed("dive"):
+		return State.Dive
 
 	return State.Null
 

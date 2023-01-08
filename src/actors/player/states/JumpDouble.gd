@@ -47,6 +47,8 @@ func handle_input(event: InputEvent) -> int:
 		if player.velocity.y > (jumpVelocity * jumpModifier) * percentKeepJumpConsecutive: ## needs to be a percent of full jump to keep it going
 			consecutive_jump_cancel()
 		return State.Fall
+	if Input.is_action_just_pressed("dive"):
+		return State.Dive
 
 	return State.Null
 

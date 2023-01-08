@@ -2,8 +2,6 @@ extends Node
 
 @onready var states = {
 	PlayerState.State.Spawn: $Spawn,
-#	PlayerState.State.Teleport: $Teleport,
-#	PlayerState.State.Die: $Die,
 	PlayerState.State.Idle: $Idle,
 	PlayerState.State.Walk: $Walk,
 	PlayerState.State.Turbo: $Turbo,
@@ -12,13 +10,17 @@ extends Node
 	PlayerState.State.Jump: $Jump,
 	PlayerState.State.JumpDouble: $JumpDouble,
 	PlayerState.State.JumpTriple: $JumpTriple,
-#	PlayerState.State.JumpAir: $JumpAir,
-#	PlayerState.State.JumpWall: $JumpWall,
 	PlayerState.State.JumpLong: $JumpLong,
 	PlayerState.State.JumpCrouch: $JumpCrouch,
 	PlayerState.State.JumpFlip: $JumpFlip,
 	PlayerState.State.JumpApex: $JumpApex,
 	PlayerState.State.Fall: $Fall,
+	PlayerState.State.Dive: $Dive,
+	
+#	PlayerState.State.Teleport: $Teleport,
+#	PlayerState.State.Die: $Die,
+#	PlayerState.State.JumpAir: $JumpAir,
+#	PlayerState.State.JumpWall: $JumpWall,
 #	PlayerState.State.DashGround: $DashGround,
 #	PlayerState.State.DashAir: $DashAir,
 #	PlayerState.State.DashUp: $DashUp,

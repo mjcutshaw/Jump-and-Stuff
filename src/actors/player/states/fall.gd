@@ -7,7 +7,7 @@ func enter() -> void:
 	if player.rotation != 0:
 		var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 		tween.tween_property(player, "rotation", 0, 0.4).from_current()
-		player.velocity = player.velocity.rotated(0)
+	player.velocity = player.velocity.rotated(0)
 
 
 func exit() -> void:
@@ -39,6 +39,8 @@ func handle_input(event: InputEvent) -> int:
 			return consecutive_jump_logic()
 		else:
 			player.timers.bufferJump.start()
+	if Input.is_action_just_pressed("dive"):
+		return State.Dive
 
 	return State.Null
 
