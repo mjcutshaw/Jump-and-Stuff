@@ -16,6 +16,7 @@ var accelerationGround: float = 0.25 * Util.tileSize
 var frictionGround: float = 0.4 * Util.tileSize
 var accelerationAir: float = 0.2 * Util.tileSize
 var frictionAir: float = 0.35 * Util.tileSize
+var terminalVelocity: int = 30 * Util.tileSize
 
 var jumpApexHeight: float = 40
 var jumpCornerCorrectionVertical: int = 10
@@ -82,6 +83,10 @@ func air_velocity_logic(speed: float, acceleration: float, friction: float) -> v
 		elif abs(player.velocity.x) >= speed:
 			#TODO: look at not needing moveDirection
 			momentum_logic(speed, true)
+
+
+func fall_speed_logic(amount) -> void:
+	player.velocity.y = min(player.velocity.y, amount)
 
 
 func speed_bend(forwardLean: bool = true, topSpeed = moveSpeed, leanAmount: float = 0.1) -> void:
