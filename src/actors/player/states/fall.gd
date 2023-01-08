@@ -1,6 +1,6 @@
 extends PlayerInfo
+#TODO: falling to long and bonk
 
-#FIXME: breaks going from walk to fall
 
 func enter() -> void:
 	player.set_up_direction(Vector2.UP)

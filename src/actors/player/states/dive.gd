@@ -1,5 +1,7 @@
 extends PlayerInfo
 #FIXME: rotation is borked
+#TODO: timer to dive right before ground to rool
+#TODO: falling to long and bonk
 
 @export var transformTime: float = 0.2
 var landed: bool = false
@@ -45,7 +47,9 @@ func sound(delta: float) -> void:
 
 
 func handle_input(event: InputEvent) -> int:
-	
+	if Input.is_action_just_pressed("jump") and player.is_on_floor():
+		#TODO: special jump 
+		return State.Jump
 
 	return State.Null
 
