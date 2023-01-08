@@ -26,7 +26,7 @@ var velocityRotated: Vector2 = Vector2.ZERO
 
 var neutralMoveDirection: bool = false
 
-var facing: int
+var facing: int = 1 #FIXME: better facing logic
 
 var jumped: bool
 var jumpedDouble: bool
@@ -83,13 +83,13 @@ func facing_logic():
 		tween.tween_property(eyes, "position", Vector2(0, eyes.position.y), 0.2).from_current()
 		eyeDirection = 1
 		particles.scale.x = 1
-		facing = -eyeDirection
+		facing = eyeDirection
 	if moveDirection.x == -1  and eyeDirection == 1:
 		var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 		tween.tween_property(eyes, "position", Vector2(-8, eyes.position.y), 0.2).from_current()
 		eyeDirection = -1
 		particles.scale.x = -1
-		facing = -eyeDirection
+		facing = eyeDirection
 
 
 func ledge_detection() -> void:
