@@ -19,6 +19,8 @@ enum State {
 	JumpAir,
 	JumpWall,
 	JumpFlip,
+	JumpLong,
+	JumpCrouch,
 	JumpApex,
 	Fall,
 	DashSide,
@@ -33,7 +35,6 @@ enum State {
 	HookShot,
 	Swim,
 	SwimDash,
-	
 	FallDamage,
 	Bonk,
 }

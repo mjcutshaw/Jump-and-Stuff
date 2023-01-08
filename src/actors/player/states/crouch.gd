@@ -6,6 +6,8 @@ extends PlayerInfo
 @export var transformTime: float = 0.2
 
 #TODO: make anim to move colision shape
+#LOOKAT: crouch stores consec jumps
+
 func enter() -> void:
 	pass
 
@@ -37,11 +39,11 @@ func handle_input(event: InputEvent) -> int:
 			return State.Walk
 		else:
 			return State.Idle
-#	if Input.is_action_just_pressed("jump"): #TODO: more jumps
-#		if abs(player.velocity.x) > minLongJumpVelocity:
-#			return State.JumpLong
-#		else:
-#			return State.JumpCrouch
+	if Input.is_action_just_pressed("jump"):
+		if abs(player.velocity.x) > minLongJumpVelocity:
+			return State.JumpLong
+		else:
+			return State.JumpCrouch
 
 	return State.Null
 
