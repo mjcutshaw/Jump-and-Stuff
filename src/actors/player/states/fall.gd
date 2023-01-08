@@ -49,6 +49,7 @@ func state_check(delta: float) -> int:
 		player.particles.land.restart()
 		player.rotation = player.get_floor_normal().angle() + PI/2 #TODO: better ground detection
 		player.timers.consecutiveJump.start()
+		player.landed()
 		if player.velocity.x != 0:
 			return State.Walk
 		else:

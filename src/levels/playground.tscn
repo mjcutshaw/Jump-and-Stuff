@@ -1,11 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://f53exxejh5co"]
+[gd_scene load_steps=10 format=3 uid="uid://f53exxejh5co"]
 
 [ext_resource type="Script" path="res://src/levels/playground.gd" id="1_fgo7i"]
 [ext_resource type="Script" path="res://src/object/prefab/scripts/DrawCollisionShape2D.gd" id="1_isl6d"]
 [ext_resource type="Script" path="res://src/debug/Info.gd" id="2_slpti"]
+[ext_resource type="Script" path="res://src/levels/Ground.gd" id="3_7mvmu"]
 [ext_resource type="PackedScene" uid="uid://dcnsbuom51e0n" path="res://src/actors/player/player.tscn" id="3_m0pk1"]
-[ext_resource type="PackedScene" uid="uid://bhto12bvuu2p" path="res://src/object/prefab/drawableTerrain.tscn" id="4_ypsbw"]
-[ext_resource type="Script" path="res://src/levels/POLY.gd" id="5_e68rw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l1c3o"]
 size = Vector2(6160, 64)
@@ -13,23 +12,11 @@ size = Vector2(6160, 64)
 [sub_resource type="CircleShape2D" id="CircleShape2D_84nwl"]
 radius = 574.78
 
-[sub_resource type="Curve2D" id="Curve2D_j04xt"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, -2, -97, -473.958, 203.125, 473.958, -203.125, 1309, -339, 0, 0, 0, 0, 1582, -903, 0, 0, 0, 0, 1782, -756, 0, 0, 0, 0, 1812, -182, 0, 0, 0, 0, 1518.54, -168.948, 0, 0, 0, 0, -2, -97)
-}
-point_count = 7
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qpv6n"]
+size = Vector2(418, 51)
 
-[sub_resource type="Curve2D" id="Curve2D_1a0bp"]
-_data = {
-"points": PackedVector2Array(-192.434, 121.162, 192.434, -121.162, -479, 14, -106.908, -8.90899, 106.908, 8.90899, -139, 142, -26.9695, -32.9628, 26.9695, 32.9628, -16, 200, -110.875, 38.956, 110.875, -38.956, 131, 335, -142.544, 30.2906, 142.544, -30.2906, 399, 482, -64.4272, -40.4543, 64.4272, 40.4543, 827, 525, -41.9526, -37.4577, 41.9526, 37.4577, 1110, 585, 0, 0, 0, 0, 1523, 729, 0, 0, 0, 0, -178, 705, 0, 0, 0, 0, -479, 14)
-}
-point_count = 10
-
-[sub_resource type="Curve2D" id="Curve2D_8cg2n"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, -117, -2, 0, 0, 0, 0, 56, -80, -144.853, 160.669, 144.853, -160.669, 292, -144, -42.4264, 32.5269, 42.4264, -32.5269, 572, -340, -77.0456, 25.4623, 77.0456, -25.4623, 784, -433, -152.946, 80.8288, 152.946, -80.8288, 986, -552, 56.2304, 103.976, -56.2304, -103.976, 1069, -935, 198.465, 7.14892, -198.465, -7.14892, 672, -1163, 115.817, -58.7993, -115.817, 58.7993, 311, -1098, 92.3968, -39.3572, -92.3968, 39.3572, 151, -840, 58, 36, -58, -36, -92, -897, 0, 0, 0, 0, -84, -1000, 0, 0, 0, 0, -4, -1078, 0, 0, 0, 0, 112, -1151, 0, 0, 0, 0, 225, -1175, 0, 0, 0, 0, 638, -1199, 0, 0, 0, 0, 1046, -1124, 0, 0, 0, 0, 1273, -444, 0, 0, 0, 0, 1253, 92, 0, 0, 0, 0, -117, -2)
-}
-point_count = 20
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uxdpf"]
+size = Vector2(992, 23.5)
 
 [node name="Playground" type="Node"]
 script = ExtResource("1_fgo7i")
@@ -85,8 +72,12 @@ offset_bottom = 77.0
 [node name="ground" type="Node" parent="."]
 
 [node name="Ground" type="StaticBody2D" parent="ground"]
+light_mask = 2
+visibility_layer = 2
 collision_layer = 2
 collision_mask = 0
+script = ExtResource("3_7mvmu")
+color = Color(0, 0.517647, 0, 1)
 metadata/_edit_lock_ = true
 
 [node name="intro" type="CollisionShape2D" parent="ground/Ground"]
@@ -99,54 +90,31 @@ position = Vector2(-2052, 421)
 shape = SubResource("CircleShape2D_84nwl")
 script = ExtResource("1_isl6d")
 
-[node name="StaticBody2D" parent="ground" instance=ExtResource("4_ypsbw")]
-position = Vector2(-1996, 1404)
-
-[node name="Path2D" parent="ground/StaticBody2D" index="3"]
-position = Vector2(-1032, 1832)
-curve = SubResource("Curve2D_j04xt")
-
-[node name="StaticBody2D3" type="StaticBody2D" parent="ground"]
-position = Vector2(-2436, 948)
+[node name="StaticBody2D" type="StaticBody2D" parent="ground"]
 collision_layer = 2
 collision_mask = 0
-script = ExtResource("5_e68rw")
+script = ExtResource("3_7mvmu")
+color = Color(1, 0, 0, 1)
 
-[node name="Polygon2D" type="Polygon2D" parent="ground/StaticBody2D3"]
-color = Color(0, 0, 0, 1)
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ground/StaticBody2D3"]
-
-[node name="Line2D" type="Line2D" parent="ground/StaticBody2D3"]
-width = 8.0
-default_color = Color(0, 0.568627, 0, 1)
-
-[node name="Path2D" type="Path2D" parent="ground/StaticBody2D3"]
-curve = SubResource("Curve2D_1a0bp")
+[node name="VisibleCollisionShape2D2" type="CollisionShape2D" parent="ground/StaticBody2D"]
+position = Vector2(387, -103)
+shape = SubResource("RectangleShape2D_qpv6n")
+script = ExtResource("1_isl6d")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="ground"]
-position = Vector2(-1092, 2164)
 collision_layer = 2
 collision_mask = 0
-script = ExtResource("5_e68rw")
+script = ExtResource("3_7mvmu")
+color = Color(0, 0, 1, 1)
 
-[node name="Polygon2D" type="Polygon2D" parent="ground/StaticBody2D2"]
-color = Color(0, 0, 0, 1)
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ground/StaticBody2D2"]
-
-[node name="Line2D" type="Line2D" parent="ground/StaticBody2D2"]
-width = 8.0
-default_color = Color(0, 0.568627, 0, 1)
-
-[node name="Path2D" type="Path2D" parent="ground/StaticBody2D2"]
-curve = SubResource("Curve2D_8cg2n")
+[node name="VisibleCollisionShape2D" type="CollisionShape2D" parent="ground/StaticBody2D2"]
+position = Vector2(-494, -126.25)
+shape = SubResource("RectangleShape2D_uxdpf")
+script = ExtResource("1_isl6d")
 
 [node name="Player" parent="." instance=ExtResource("3_m0pk1")]
-position = Vector2(232, -461)
+position = Vector2(-629, -256)
 floor_snap_length = 9.0
 
 [node name="Player@Camera2D" type="Camera2D" parent="Player"]
 current = true
-
-[editable path="ground/StaticBody2D"]

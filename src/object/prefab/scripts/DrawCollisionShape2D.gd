@@ -16,12 +16,12 @@ class_name VisibleCollisionShape2D
 #		shape.size.x = v * 64
 #		queue_redraw()
 
-
-@export var color: Color = Color.BLACK:
-	get: return color
-	set(v):
-		color = v
-		queue_redraw()
+var color: Color
+#@export var color: Color = Color.BLACK:
+#	get: return color
+#	set(v):
+#		color = v
+#		queue_redraw()
 
 
 

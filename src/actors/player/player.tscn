@@ -51,8 +51,6 @@ orbit_velocity_max = 0.0
 scale_max = 7.0
 scale_curve = SubResource("CurveTexture_vjq7j")
 color = Color(0, 0, 0, 1)
-hue_variation_min = -0.12
-hue_variation_max = 0.19
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_n1xfx"]
 lifetime_randomness = 0.3
@@ -70,7 +68,8 @@ orbit_velocity_max = 0.0
 scale_max = 10.0
 scale_curve = SubResource("CurveTexture_vjq7j")
 color = Color(0.270588, 0.270588, 0.270588, 1)
-hue_variation_max = 0.19
+hue_variation_min = -0.01
+hue_variation_max = 0.03
 
 [sub_resource type="Curve" id="Curve_pgpbg"]
 _data = [Vector2(0, 0.5), 0.0, 3.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

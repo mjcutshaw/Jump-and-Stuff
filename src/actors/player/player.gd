@@ -36,6 +36,8 @@ var ledgeRight: bool
 
 var currentStateName
 
+var groundColor: Color = Color.BLACK
+
 func _ready() -> void:
 	sm.init()
 	EventBus.connect("playerConsecutiveJump", consecutive_jump_cancel)
@@ -53,6 +55,7 @@ func _physics_process(delta: float) -> void:
 	facing_logic()
 	if is_on_floor(): #TODo: create is grounded using floor raycasts
 		ledge_detection()
+	
 	EventBus.emit_signal("debugVelocity", velocity.round())
 
 
@@ -74,9 +77,7 @@ func get_move_input() -> void:
 	if moveDirection != Vector2.ZERO:
 		lastMoveDirection = moveDirection
 
-#LOOKAT: maybe move these to playerinfo
 func facing_logic():
-	#FIXME: breaks with crouch state
 	#TODO: need to be able to send variables
 	if moveDirection.x == 1 and eyeDirection == -1:
 		var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
@@ -127,3 +128,8 @@ func consecutive_jump_cancel() -> void:
 	jumped = false
 	jumpedDouble = false
 	timers.consecutiveJump.stop()
+
+
+func landed() -> void:
+	if get_last_slide_collision() != null:
+			groundColor = get_last_slide_collision().get_collider().color
