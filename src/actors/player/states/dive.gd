@@ -3,14 +3,13 @@ extends PlayerInfo
 #TODO: timer to dive right before ground to rool
 #TODO: falling to long and bonk
 
-@export var transformTime: float = 0.2
+@export var transformTime: float = 0.05
 var landed: bool = false
 
 func enter() -> void:
-	player.characterRig.rotate(90 * player.facing)
 	player.velocity.x = moveSpeed
-#	var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
-#	tween.tween_property(player.characterRig, "rotation", 120 * player.facing, transformTime).from_current()
+	var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	tween.tween_property(player.characterRig, "rotation", 90 * player.facing, transformTime).from(0)
 
 
 func exit() -> void:
@@ -36,9 +35,9 @@ func visual(delta) -> void:
 	squash_and_stretch(delta)
 	
 	if player.is_on_floor() and !landed:
-		player.characterRig.rotate(-45 * player.facing)
-#		var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
-#		tween.tween_property(player.characterRig, "rotation", 67 , transformTime).from_current()
+#		player.characterRig.rotate(-45 * player.facing)
+		var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+		tween.tween_property(player.characterRig, "rotation", 45 * player.facing, transformTime).from(0)
 		landed = true
 
 
