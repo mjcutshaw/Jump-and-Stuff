@@ -292,7 +292,6 @@ _data = {
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 64
 collision_mask = 2
-floor_max_angle = 0.767945
 floor_snap_length = 7.3
 script = ExtResource("1_a3yhc")
 
