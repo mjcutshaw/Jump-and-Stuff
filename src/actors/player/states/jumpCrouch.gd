@@ -46,8 +46,6 @@ func handle_input(event: InputEvent) -> int:
 
 
 func state_check(delta: float) -> int:
-	if player.is_on_ceiling():
-		return State.Apex
 	if player.velocity.y > -jumpApexHeight:
 		return State.JumpApex
 	if player.is_on_floor():
