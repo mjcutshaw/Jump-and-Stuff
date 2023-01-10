@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://f53exxejh5co"]
+[gd_scene load_steps=11 format=3 uid="uid://f53exxejh5co"]
 
 [ext_resource type="Script" path="res://src/levels/playground.gd" id="1_fgo7i"]
 [ext_resource type="Script" path="res://src/object/prefab/scripts/DrawCollisionShape2D.gd" id="1_isl6d"]
@@ -17,6 +17,9 @@ size = Vector2(418, 51)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uxdpf"]
 size = Vector2(992, 23.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yqbas"]
+size = Vector2(1130, 22)
 
 [node name="Playground" type="Node"]
 script = ExtResource("1_fgo7i")
@@ -110,6 +113,12 @@ color = Color(0, 0, 1, 1)
 [node name="VisibleCollisionShape2D" type="CollisionShape2D" parent="ground/StaticBody2D2"]
 position = Vector2(-494, -126.25)
 shape = SubResource("RectangleShape2D_uxdpf")
+script = ExtResource("1_isl6d")
+
+[node name="VisibleCollisionShape2D2" type="CollisionShape2D" parent="ground/StaticBody2D2"]
+position = Vector2(-1423, -416)
+rotation = 0.574334
+shape = SubResource("RectangleShape2D_yqbas")
 script = ExtResource("1_isl6d")
 
 [node name="Player" parent="." instance=ExtResource("3_m0pk1")]

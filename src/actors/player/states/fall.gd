@@ -1,12 +1,12 @@
 extends PlayerInfo
 #TODO: falling to long and bonk
 
-
+@export var transTime: float = 0.1
 func enter() -> void:
 	player.set_up_direction(Vector2.UP)
 	if player.rotation != 0:
 		var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
-		tween.tween_property(player, "rotation", 0, 0.4).from_current()
+		tween.tween_property(player, "rotation", 0, transTime).from_current()
 	player.velocity = player.velocity.rotated(0)
 
 
@@ -22,6 +22,25 @@ func physics(delta) -> void:
 	gravity_logic(gravityFall, delta)
 	air_velocity_logic(moveSpeed, accelerationAir, frictionAir) #TODO neutral movement
 	fall_speed_logic(terminalVelocity)
+	
+	if player.detectorGroundLeft.is_colliding() or player.detectorGroundRight.is_colliding():
+		var leftAngle: float = player.detectorGroundLeft.get_collision_normal().angle() + PI/2
+		var rightAngle: float = player.detectorGroundRight.get_collision_normal().angle() + PI/2
+		
+		if !player.detectorGroundRight.is_colliding():
+			player.groundAngle = leftAngle
+		if !player.detectorGroundLeft.is_colliding():
+			player.groundAngle = rightAngle
+		else:
+			player.groundAngle = (leftAngle + rightAngle)/2
+		
+		player.set_up_direction(-player.transform.y)
+		player.velocity = player.velocity.rotated(player.rotation)
+		player.move_and_slide()
+		player.velocity = player.velocity.rotated(-player.rotation)
+		player.rotation = player.groundAngle
+#		print(leftAngle)
+#		print(player.groundAngle)
 
 
 func visual(delta) -> void:

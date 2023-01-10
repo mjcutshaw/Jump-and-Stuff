@@ -10,6 +10,7 @@ func enter() -> void:
 	if player.characterRig.skew != 0:
 		var tween = create_tween() #LOOKAT: move to player info
 		tween.tween_property(player.characterRig, "skew", 0, transformTime).from_current()
+		tween.tween_property(player, "rotation", player.get_floor_normal().angle() + PI/2, transformTime).from_current()
 
 
 func exit() -> void:
@@ -19,7 +20,6 @@ func exit() -> void:
 func physics(delta) -> void:
 	player.move_and_slide()
 
-#	player.rotation = player.get_floor_normal().angle() + PI/2 #FIXME: bring back
 
 func visual(delta) -> void:
 	squash_and_stretch(delta)
