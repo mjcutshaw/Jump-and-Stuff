@@ -1,7 +1,9 @@
 extends PlayerInfo
 #FIXME: rotation is borked
-#TODO: timer to dive right before ground to rool
 #TODO: falling to long and bonk
+#TODO: Slide state, enter when on ground
+#TODO: Roll state, timer to dive right before ground to roll
+#TODO: dive further out
 
 @export var transformTime: float = 0.05
 var landed: bool = false

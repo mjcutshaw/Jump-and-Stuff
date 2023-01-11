@@ -1,5 +1,6 @@
 extends PlayerInfo
 #TODO: falling to long and bonk
+#TODO: slow fall while jump held
 
 @export var transTime: float = 0.1
 func enter() -> void:

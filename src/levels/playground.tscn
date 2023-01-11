@@ -27,7 +27,6 @@ script = ExtResource("1_fgo7i")
 [node name="Debug" type="CanvasLayer" parent="."]
 
 [node name="Info" type="MarginContainer" parent="Debug"]
-anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -40.0
@@ -39,38 +38,26 @@ script = ExtResource("2_slpti")
 
 [node name="Panel" type="Panel" parent="Debug/Info"]
 modulate = Color(1, 1, 1, 0.576471)
-offset_left = 20.0
-offset_right = 40.0
-offset_bottom = 87.0
+layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Debug/Info"]
-offset_left = 20.0
-offset_right = 40.0
-offset_bottom = 87.0
+layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Debug/Info/MarginContainer"]
-offset_left = 5.0
-offset_top = 5.0
-offset_right = 15.0
-offset_bottom = 82.0
+layout_mode = 2
 
 [node name="State" type="Label" parent="Debug/Info/MarginContainer/VBoxContainer"]
-offset_right = 10.0
-offset_bottom = 23.0
+layout_mode = 2
 
 [node name="Velocity" type="Label" parent="Debug/Info/MarginContainer/VBoxContainer"]
-offset_top = 27.0
-offset_right = 10.0
-offset_bottom = 50.0
+layout_mode = 2
 
 [node name="Debug" type="Label" parent="Debug/Info/MarginContainer/VBoxContainer"]
-offset_top = 54.0
-offset_right = 10.0
-offset_bottom = 77.0
+layout_mode = 2
 
 [node name="ground" type="Node" parent="."]
 
