@@ -12,6 +12,7 @@ func enter() -> void:
 func exit() -> void:
 	player.characterRig.scale = Vector2(1,1) ## Makes sure character is full size ##
 	#TODO: find better way
+	player.landed()
 
 
 func physics(delta) -> void:
