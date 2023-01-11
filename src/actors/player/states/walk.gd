@@ -31,7 +31,7 @@ func physics(delta) -> void:
 	if player.moveDirection.x == 0 and (player.ledgeLeft or player.ledgeRight): ## stops on ledge w/o input
 		player.velocity.x = move_toward(player.velocity.x, 0, frictionGround)
 		EventBus.emit_signal("helperUsed", Util.helper.stopOnLedge)
-
+	
 	player.rotation = player.get_floor_normal().angle() + PI/2 #FIXME: turn off if on ledge, need to use raycast to check ground
 
 

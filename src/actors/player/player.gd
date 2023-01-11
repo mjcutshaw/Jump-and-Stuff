@@ -53,6 +53,7 @@ func _physics_process(delta: float) -> void:
 
 	get_move_input()
 	facing_logic()
+	get_slope_angle()
 	if is_on_floor(): #TODo: create is grounded using floor raycasts
 		ledge_detection()
 	
@@ -133,3 +134,18 @@ func consecutive_jump_cancel() -> void:
 func landed() -> void:
 	if get_last_slide_collision() != null:
 			groundColor = get_last_slide_collision().get_collider().color
+
+
+func get_slope_angle() -> void:
+	if detectorGroundLeft.is_colliding() or detectorGroundRight.is_colliding(): ## angles the player to the ground
+		var leftAngle: float = detectorGroundLeft.get_collision_normal().angle() + PI/2
+		var rightAngle: float = detectorGroundRight.get_collision_normal().angle() + PI/2
+		
+		if !detectorGroundRight.is_colliding():
+			groundAngle = leftAngle
+		if !detectorGroundLeft.is_colliding():
+			groundAngle = rightAngle
+		else:
+			groundAngle = (leftAngle + rightAngle)/2
+	else:
+		groundAngle = 0
