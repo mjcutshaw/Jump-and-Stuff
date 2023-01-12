@@ -25,6 +25,7 @@ func physics(delta) -> void:
 	player.move_and_slide()
 	gravity_logic(gravityFall, delta)
 	fall_speed_logic(terminalVelocity)
+	align_to_ground()
 
 
 func visual(delta) -> void:

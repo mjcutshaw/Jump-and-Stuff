@@ -23,13 +23,7 @@ func physics(delta) -> void:
 	gravity_logic(gravityFall, delta)
 	air_velocity_logic(moveSpeed, accelerationAir, frictionAir) #TODO neutral movement
 	fall_speed_logic(terminalVelocity)
-	
-	if player.groundAngle != 0:
-		player.set_up_direction(-player.transform.y)
-		player.velocity = player.velocity.rotated(player.rotation)
-		player.move_and_slide()
-		player.velocity = player.velocity.rotated(-player.rotation)
-		player.rotation = player.groundAngle
+	align_to_ground()
 
 
 func visual(delta) -> void:

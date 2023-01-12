@@ -28,6 +28,7 @@ func _ready() -> void:
 	EventBus.connect("playerStatsUpdate", update_stats)
 
 func update_stats() -> void:
+	#TODO: create setget
 	var jumpHeight: float
 	var jumpTimeToPeak: float = 0.5
 	var jumpTimeToDescent: float = 0.25
@@ -120,3 +121,12 @@ func consecutive_jump_cancel() -> void:
 	player.jumped = false
 	player.jumpedDouble = false
 	player.timers.consecutiveJump.stop()
+
+
+func align_to_ground()-> void:
+	if player.groundAngle != 0:
+		player.set_up_direction(-player.transform.y)
+		player.velocity = player.velocity.rotated(player.rotation)
+		player.move_and_slide()
+		player.velocity = player.velocity.rotated(-player.rotation)
+		player.rotation = player.groundAngle
