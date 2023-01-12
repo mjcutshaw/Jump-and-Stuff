@@ -2,12 +2,14 @@ extends PlayerInfo
 #FIXME: rotation is borked
 #TODO: falling to long and bonk
 #TODO: Roll state, timer to dive right before ground to roll
+#TODO: further dive if coming from ground pound
 
 @export var diveSpeedMultiplier: float = 1
 @export var transformTime: float = 0.05
 
 
 func enter() -> void:
+#	rollTimer = rollTime
 	player.velocity.x = max(moveSpeed * diveSpeedMultiplier, abs(player.velocity.x)) * player.facing  ## dive at dive speed or current velocity, whichever's high
 	player.velocity.y = 10
 	var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
@@ -19,6 +21,7 @@ func exit() -> void:
 
 
 func physics(delta) -> void:
+#	rollTimer -= delta
 	if player.test_move(player.global_transform, Vector2(player.velocity.x * delta, 0)):
 		player.attempt_vertical_corner_correction(jumpCornerCorrectionVertical, delta)
 	
@@ -44,6 +47,9 @@ func handle_input(event: InputEvent) -> int:
 
 func state_check(delta: float) -> int:
 	if player.is_on_floor():
+#		if rollTimer > 0:
+#			return State.Roll
+#		else:
 		var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 		tween.tween_property(player.characterRig, "rotation", 45 * player.facing, transformTime).from(0)
 		return State.BellySlide

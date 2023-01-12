@@ -1,5 +1,8 @@
 extends PlayerInfo
 
+#TODO: if coming from double create special jump
+#TODO: bounce of enemy changes to another long jump
+#TODO: spin combo, ref https://www.mariowiki.com/Double_kick
 
 @export var jumpModifier: float = 0.9
 @export var velocityModifier: float = 1.35
@@ -25,7 +28,7 @@ func physics(delta) -> void:
 		player.attempt_vertical_corner_correction(jumpCornerCorrectionVertical, delta)
 	
 	gravity_logic(gravityJump, delta)
-	air_velocity_logic(moveSpeed, accelerationAir, frictionAir) #TODO neutral movement
+	air_velocity_logic(moveSpeed, accelerationAir, frictionAir) #TODO add control lockout or deminished air turn
 	player.set_up_direction(-player.transform.y)
 	player.velocity = player.velocity.rotated(player.rotation)
 	player.move_and_slide()

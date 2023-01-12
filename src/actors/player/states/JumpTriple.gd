@@ -61,6 +61,7 @@ func state_check(delta: float) -> int:
 		if player.velocity.x != 0:
 			return State.Walk
 		else:
+			#TODO: special pose
 			return State.Idle
 	if player.is_on_ceiling():
 		consecutive_jump_cancel()

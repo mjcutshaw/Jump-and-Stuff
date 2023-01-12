@@ -1,6 +1,8 @@
 extends PlayerInfo
 
+#LOOKAT: have to be at top speed?
 @export var jumpModifier: float = 1.25
+
 
 func enter() -> void:
 	player.sounds.jump.pitch_scale = jumpModifier
