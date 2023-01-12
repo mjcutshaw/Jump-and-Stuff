@@ -108,6 +108,12 @@ rotation = 0.574334
 shape = SubResource("RectangleShape2D_yqbas")
 script = ExtResource("1_isl6d")
 
+[node name="VisibleCollisionShape2D3" type="CollisionShape2D" parent="ground/StaticBody2D2"]
+position = Vector2(477, -368)
+rotation = -0.449796
+shape = SubResource("RectangleShape2D_yqbas")
+script = ExtResource("1_isl6d")
+
 [node name="Player" parent="." instance=ExtResource("3_m0pk1")]
 position = Vector2(-629, -256)
 floor_snap_length = 9.0

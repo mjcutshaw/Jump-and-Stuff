@@ -20,6 +20,7 @@ enum State {
 	JumpApex,
 	Fall,
 	Dive,
+	BellySlide,
 	
 	Teleport,
 	Die,

@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://dcnsbuom51e0n"]
+[gd_scene load_steps=48 format=3 uid="uid://dcnsbuom51e0n"]
 
 [ext_resource type="Script" path="res://src/actors/player/player.gd" id="1_a3yhc"]
 [ext_resource type="Script" path="res://src/actors/player/scripts/CharacterRig.gd" id="2_i63he"]
@@ -25,6 +25,7 @@
 [ext_resource type="Script" path="res://src/actors/player/states/jumpLong.gd" id="16_ekg3a"]
 [ext_resource type="AudioStream" uid="uid://c7muk6odu85aw" path="res://asset/sounds/player/skid.wav" id="18_sqfay"]
 [ext_resource type="Script" path="res://src/actors/player/states/dive.gd" id="19_52i1t"]
+[ext_resource type="Script" path="res://src/actors/player/states/bellySlide.gd" id="20_134m1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jx3rl"]
 radius = 16.0
@@ -292,7 +293,7 @@ _data = {
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 64
 collision_mask = 2
-floor_snap_length = 7.3
+floor_snap_length = 10.1
 script = ExtResource("1_a3yhc")
 
 [node name="BodyCollision" type="CollisionShape2D" parent="."]
@@ -497,6 +498,9 @@ script = ExtResource("9_hid0t")
 
 [node name="Dive" type="Node" parent="StateMachine"]
 script = ExtResource("19_52i1t")
+
+[node name="BellySlide" type="Node" parent="StateMachine"]
+script = ExtResource("20_134m1")
 
 [node name="Raycasts" type="Node2D" parent="."]
 visible = false
