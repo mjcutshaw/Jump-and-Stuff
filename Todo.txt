@@ -150,11 +150,14 @@ Hazards
 	falling spikes
 
 enemies
+	https://www.mariowiki.com/List_of_enemies
+	https://megaman.fandom.com/wiki/Category:Enemies
 	badoline like
 	Mario buzzy beetle
 	Charging chuck
 
 Blocks to add
+	https://www.mariowiki.com/List_of_items
 	boost pads
 		increased speed and no stopping for duration
 	mario odyssey fling things (forks, traffice cones)
